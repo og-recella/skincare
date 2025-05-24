@@ -16,6 +16,14 @@
       color: #222;
       text-shadow: 1px 1px 2px #ccc;
       margin-bottom: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    h1::before {
+      content: "📄";
+      font-size: 32px;
     }
     .grid {
       display: grid;
@@ -29,7 +37,7 @@
       width: 120px;
       height: 120px;
       border-radius: 50%;
-      background-color: #f7c8c8; /* デフォルト色 */
+      background-color: #f7c8c8; /* Default color */
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -68,11 +76,11 @@
 <body>
   <h1>レポートリンク</h1>
   <div class="grid">
-    <a href="https://og-recella.github.io/skincare/202504.html" class="circle" target="_blank">
+    <a href="https://og-recella.github.io/skincare/202504.html" class="circle" title="業績レポート" target="_blank">
       <div class="number">1</div>
       <div class="label">202504</div>
     </a>
-    <a href="https://og-recella.github.io/skincare/mens_skincare.html" class="circle" target="_blank">
+    <a href="https://og-recella.github.io/skincare/mens_skincare.html" class="circle" title="メンズスキンケア市場" target="_blank">
       <div class="number">2</div>
       <div class="label">mens_skincare</div>
     </a>
