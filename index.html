@@ -5,36 +5,77 @@
   <title>レポートリンク</title>
   <style>
     body {
-      font-family: sans-serif;
-      margin: 40px;
+      font-family: 'Arial', sans-serif;
       background-color: #f9f9f9;
+      text-align: center;
+      padding: 40px;
     }
     h1 {
-      font-size: 24px;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 5px;
+      font-size: 32px;
+      font-weight: bold;
+      color: #222;
+      text-shadow: 1px 1px 2px #ccc;
+      margin-bottom: 40px;
     }
-    ul {
-      list-style: none;
-      padding-left: 0;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 30px;
+      justify-items: center;
+      max-width: 500px;
+      margin: 0 auto;
     }
-    li {
-      margin: 10px 0;
-    }
-    a {
+    .circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background-color: #f7c8c8; /* デフォルト色 */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      transition: transform 0.2s;
       text-decoration: none;
-      color: #007acc;
+      color: #333;
     }
-    a:hover {
-      text-decoration: underline;
+    .circle:hover {
+      transform: scale(1.05);
+    }
+    .circle:nth-child(1) {
+      background-color: #f7c8c8;
+    }
+    .circle:nth-child(2) {
+      background-color: #c8d8e4;
+    }
+    .number {
+      font-weight: bold;
+      font-size: 20px;
+      background-color: #fff;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      line-height: 32px;
+      margin-bottom: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .label {
+      font-size: 16px;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
   <h1>レポートリンク</h1>
-  <ul>
-    <li><a href="https://og-recella.github.io/skincare/202504.html" target="_blank">202504</a></li>
-    <li><a href="https://og-recella.github.io/skincare/mens_skincare.html" target="_blank">mens_skincare</a></li>
-  </ul>
+  <div class="grid">
+    <a href="https://og-recella.github.io/skincare/202504.html" class="circle" target="_blank">
+      <div class="number">1</div>
+      <div class="label">202504</div>
+    </a>
+    <a href="https://og-recella.github.io/skincare/mens_skincare.html" class="circle" target="_blank">
+      <div class="number">2</div>
+      <div class="label">mens_skincare</div>
+    </a>
+  </div>
 </body>
 </html>
