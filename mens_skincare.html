@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>日本の男性向け夜間スキンケア市場 インフォグラフィック (AI機能付き)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F8F9FA;
+            color: #212529;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .stat-card {
+            background-color: #FFFFFF;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #007BFF;
+        }
+        .stat-label {
+            font-size: 0.875rem;
+            color: #495057;
+            margin-top: 0.5rem;
+        }
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: 600;
+            color: #0056b3;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .subsection-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #17A2B8;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .list-item::before {
+            content: "🌙";
+            margin-right: 0.5rem;
+            color: #007BFF;
+        }
+        .gemini-feature-card {
+            background-color: #e6f7ff; /* Light blue background for AI features */
+            border-left: 5px solid #007BFF;
+        }
+        .gemini-button {
+            background-color: #007BFF;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        .gemini-button:hover {
+            background-color: #0056b3;
+        }
+        .concern-checkbox:checked + label {
+            background-color: #007BFF;
+            color: white;
+            border-color: #0056b3;
+        }
+        .concern-label {
+            border: 1px solid #ced4da;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+        }
+        .concern-label:hover {
+            background-color: #e9ecef;
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <header class="bg-gradient-to-r from-blue-600 to-teal-500 text-white py-8 shadow-lg">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold">日本の男性向け夜間スキンケア市場</h1>
+            <p class="mt-2 text-lg">成長の深層を探る：トレンド、消費者インサイト、将来展望 (AI機能付き)</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-8">
+
+        <section id="market-overview" class="mb-12">
+            <div class="card">
+                <h2 class="section-title">市場の夜明け：全体像と成長の兆し</h2>
+                <p class="text-center text-gray-700 mb-8">日本の男性美容市場は活況を呈しており、その中でも特に「夜間ケア」という新たな領域が注目を集めています。男性の美意識の高まりと共に、夜の時間を活用したスキンケアの可能性が広がりつつあります。</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div class="stat-card">
+                        <div class="stat-value">497億円</div>
+                        <div class="stat-label">2024年 男性化粧品市場規模 (インテージ調べ)</div>
+                        <p class="text-xs text-gray-500 mt-2">前年比114.8%、2019年比1.8倍の成長</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">314億円</div>
+                        <div class="stat-label">2024年 男性化粧品市場予測 (富士経済調べ)</div>
+                         <p class="text-xs text-gray-500 mt-2">2023年比6.4%増</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="subsection-title text-center">男性の美容への関心が高まる理由</h3>
+                    <p class="text-gray-600 mb-4 text-center">パンデミックによるオンライン会議の増加や、「自分磨き」への意識の高まりが、男性のスキンケアへの関心を後押ししています。</p>
+                    <div class="chart-container mx-auto h-[350px] md:h-[400px]">
+                        <canvas id="motivationChart"></canvas>
+                    </div>
+                    <p class="text-sm text-gray-700 mt-4">スキンケアを始める主な動機として「肌の乾燥やトラブル改善のため」が31.2%、「自分磨きの一環」が24.1%を占めています。特に10代では「自分磨き」が32.4%と高い傾向にあります。(インテージ調べ)</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="basic-skincare-focus" class="mb-12">
+            <div class="card">
+                <h2 class="section-title">夜間ケアへの布石：基礎化粧品の躍進</h2>
+                <p class="text-center text-gray-700 mb-8">夜間ケア製品の多くが含まれる「基礎化粧品」セグメントは、男性化粧品市場全体の約9割を占め、力強い成長を見せています。これは、男性が基本的なスキンケア習慣を取り入れ、より専門的な製品へと関心を広げていることを示唆しています。</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                    <div class="stat-card">
+                        <div class="stat-value">438億円</div>
+                        <div class="stat-label">2024年 男性向け基礎化粧品市場規模 (インテージ調べ)</div>
+                        <p class="text-xs text-gray-500 mt-2">男性化粧品市場全体の約9割、前年比115.7%増</p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">4.9倍</div>
+                        <div class="stat-label">美容液カテゴリの成長 (2019年比、インテージ調べ)</div>
+                        <p class="text-xs text-gray-500 mt-2">夜間使用が多い美容液の急成長は注目すべき指標です。</p>
+                    </div>
+                     <div class="stat-card">
+                        <div class="stat-value">1.7倍</div>
+                        <div class="stat-label">一人当たり平均購入金額の増加 (2019年比、インテージ調べ)</div>
+                        <p class="text-xs text-gray-500 mt-2">1,869円 (2019年) → 3,131円 (2024年)</p>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="subsection-title text-center">基礎化粧品：注目カテゴリーの成長</h3>
+                     <p class="text-gray-600 mb-4 text-center">特に美容液やクリームといった、夜間使用と関連性の高い製品カテゴリーが著しい伸びを示しています。</p>
+                    <div class="chart-container mx-auto h-[350px] md:h-[400px]">
+                        <canvas id="categoryGrowthChart"></canvas>
+                    </div>
+                     <p class="text-sm text-gray-700 mt-4">美容液は2019年比で4.9倍、クリームは2017年から2022年にかけて2倍以上の成長を遂げており、男性がより高度なスキンケアを求めていることがうかがえます。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="night-care-niche" class="mb-12">
+            <div class="card">
+                <h2 class="section-title">「夜間美容」のポテンシャル：定義と市場の可能性</h2>
+                <p class="text-center text-gray-700 mb-8">「男性向け夜間専用スキンケア」という明確な市場規模データはまだ限定的ですが、関連市場の成長や消費者トレンドから、その大きな潜在力が見えてきます。「睡眠美容」というキーワードも、効率性を重視する男性にとって魅力的なコンセプトです。</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="subsection-title">「睡眠美容」とは？</h3>
+                        <div class="bg-blue-50 p-6 rounded-lg shadow">
+                            <p class="text-gray-700 leading-relaxed">
+                                <span class="text-2xl mr-2">🌙</span>
+                                睡眠時間を美容時間として活用する考え方です。肌の再生が活発になる夜間に特化したケアを行うことで、効率的に肌のコンディションを整えることを目指します。
+                                <br><br>
+                                <span class="font-semibold text-blue-700">男性にとってのメリット：</span>
+                            </p>
+                            <ul class="list-disc list-inside text-gray-700 mt-2 ml-4">
+                                <li><span class="font-semibold">効率性：</span>寝ている間にケアが完了。</li>
+                                <li><span class="font-semibold">時短：</span>忙しい毎日でも取り入れやすい。</li>
+                                <li><span class="font-semibold">効果実感：</span>集中的なケアで翌朝の違いを期待。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="subsection-title">男性向け夜間スキンケアの主要製品</h3>
+                         <p class="text-gray-600 mb-4">夜間の肌修復や保湿に特化した様々な製品が登場しています。</p>
+                        <ul class="space-y-3">
+                            <li class="flex items-center bg-gray-50 p-3 rounded-md shadow-sm"><span class="text-xl mr-3">🧴</span><div><span class="font-semibold text-teal-700">ナイトクリーム：</span>濃厚な保湿でじっくりケア</div></li>
+                            <li class="flex items-center bg-gray-50 p-3 rounded-md shadow-sm"><span class="text-xl mr-3">🧪</span><div><span class="font-semibold text-teal-700">夜用美容液・オイル：</span>特定の悩みに集中アプローチ</div></li>
+                            <li class="flex items-center bg-gray-50 p-3 rounded-md shadow-sm"><span class="text-xl mr-3">🎭</span><div><span class="font-semibold text-teal-700">スリーピングマスク：</span>塗ったまま寝て、うるおいを密封</div></li>
+                            <li class="flex items-center bg-gray-50 p-3 rounded-md shadow-sm"><span class="text-xl mr-3">🔄</span><div><span class="font-semibold text-teal-700">オールインワンジェル：</span>手軽に多機能ケア</div></li>
+                        </ul>
+                    </div>
+                </div>
+                 <p class="text-sm text-gray-700 mt-8 text-center">世界的な夜間スキンケア市場も拡大しており、アジア太平洋地域も重要な市場とされています。日本国内でも、美容液やクリームの成長は、夜間ケア製品への関心の高まりを示唆しています。</p>
+            </div>
+        </section>
+
+        <section id="consumer-insights" class="mb-12">
+            <div class="card">
+                <h2 class="section-title">消費者のインサイト：夜間ケアを選ぶ理由</h2>
+                <p class="text-center text-gray-700 mb-8">男性がスキンケア、特に夜間ケアに何を求め、どのような製品を選んでいるのでしょうか。その動機と、スキンケア実践における障壁を探ります。</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="subsection-title text-center">スキンケア導入の主な動機</h3>
+                        <p class="text-gray-600 mb-4 text-center">肌の悩み改善や自己投資意識が、スキンケアを始めるきっかけとなっています。</p>
+                        <div class="chart-container mx-auto h-[300px] md:h-[350px]">
+                            <canvas id="skinCareMotivationsChart"></canvas>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-4">「保湿」は最優先事項であり、乾燥、肌荒れ、エイジングサインなどへの対応が求められています。夜間はこれらのケアに最適な時間帯です。</p>
+                    </div>
+                    <div>
+                        <h3 class="subsection-title text-center">スキンケア実践の障壁</h3>
+                        <p class="text-gray-600 mb-4 text-center">一方で、「面倒くささ」がスキンケア継続の課題となることも。</p>
+                        <div class="chart-container mx-auto h-[300px] md:h-[350px]">
+                            <canvas id="skinCareBarriersChart"></canvas>
+                        </div>
+                        <p class="text-sm text-gray-700 mt-4">「時間がかかる」(51.0%)、「やることが多い」(18.3%)などが主な理由。夜間製品は「塗って寝るだけ」という手軽さが魅力となり得ます。(全薬工業調べ)</p>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <h3 class="subsection-title text-center">年齢層によるアプローチの違い</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-blue-50 p-4 rounded-lg shadow">
+                            <h4 class="font-semibold text-blue-700 mb-2">若年層 (10代～20代)</h4>
+                            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+                                <li>ニキビなどの悩みやトレンドに敏感。</li>
+                                <li>SNSやインフルエンサーの影響を受けやすい。</li>
+                                <li>新しい製品やルーティンに積極的。</li>
+                                <li>夜用美容液やマスクも取り入れる傾向。</li>
+                            </ul>
+                        </div>
+                        <div class="bg-teal-50 p-4 rounded-lg shadow">
+                            <h4 class="font-semibold text-teal-700 mb-2">中高年層 (40代～)</h4>
+                            <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+                                <li>加齢による肌変化への意識が高い。</li>
+                                <li>オンライン会議などで容姿を気にする機会増。</li>
+                                <li>効果的で分かりやすい解決策を好む。</li>
+                                <li>アンチエイジングナイトクリームや効率的なオールインワン製品に関心。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ai-personal-planning" class="mb-12">
+            <div class="card gemini-feature-card">
+                <h2 class="section-title">AIパーソナル夜間ケアプランニング ✨</h2>
+                <p class="text-center text-gray-700 mb-6">あなたの肌の悩みに合わせて、AIが夜間ケアにおすすめの製品タイプや成分を提案します。</p>
+                
+                <div id="skinConcerns" class="mb-6">
+                    <h3 class="subsection-title text-center !text-blue-700">1. あなたの肌悩みを選んでください (複数選択可)</h3>
+                    <div class="flex flex-wrap justify-center gap-3 mt-4">
+                        <div><input type="checkbox" id="concern_dryness" value="乾燥" class="hidden concern-checkbox"><label for="concern_dryness" class="concern-label">乾燥</label></div>
+                        <div><input type="checkbox" id="concern_oiliness" value="テカリ・毛穴" class="hidden concern-checkbox"><label for="concern_oiliness" class="concern-label">テカリ・毛穴</label></div>
+                        <div><input type="checkbox" id="concern_aging" value="エイジングサイン" class="hidden concern-checkbox"><label for="concern_aging" class="concern-label">エイジングサイン</label></div>
+                        <div><input type="checkbox" id="concern_dullness" value="くすみ・シミ" class="hidden concern-checkbox"><label for="concern_dullness" class="concern-label">くすみ・シミ</label></div>
+                        <div><input type="checkbox" id="concern_sensitive" value="敏感肌" class="hidden concern-checkbox"><label for="concern_sensitive" class="concern-label">敏感肌</label></div>
+                    </div>
+                </div>
+
+                <div class="text-center mb-6">
+                    <button id="getAiAdviceButton" class="gemini-button">AIアドバイスを生成 ✨</button>
+                </div>
+
+                <div id="aiAdviceLoading" class="text-center text-gray-600 my-4 hidden">
+                    <div role="status" class="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" >
+                        <span class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
+                    </div>
+                    <p>AIがあなたにぴったりのプランを考えています...</p>
+                </div>
+                <div id="aiAdviceError" class="text-center text-red-600 my-4 hidden">
+                    <p>申し訳ありません、AIアドバイスの生成中にエラーが発生しました。もう一度お試しください。</p>
+                </div>
+                <div id="aiAdviceResult" class="mt-6 p-4 bg-white rounded-lg shadow">
+                </div>
+            </div>
+        </section>
+
+        <section id="market-trends" class="mb-12">
+            <div class="card">
+                <h2 class="section-title">未来を照らす：市場トレンドと成長機会</h2>
+                <p class="text-center text-gray-700 mb-8">男性向け夜間スキンケア市場は、今後どのような方向に進むのでしょうか。新たな製品トレンドや、企業にとっての成長機会、そして市場拡大に向けた課題について考察します。</p>
+
+                <h3 class="subsection-title">新たな製品トレンド</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-gray-100 p-4 rounded-lg shadow text-center hover:shadow-lg transition-shadow">
+                        <div class="text-3xl mb-2">🎯</div>
+                        <h4 class="font-semibold text-gray-800">専門的トリートメント</h4>
+                        <p class="text-sm text-gray-600">アンチエイジング、ブライトニング特化</p>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg shadow text-center hover:shadow-lg transition-shadow">
+                        <div class="text-3xl mb-2">🌿</div>
+                        <h4 class="font-semibold text-gray-800">ナチュラル・クリーン処方</h4>
+                        <p class="text-sm text-gray-600">天然由来、無添加志向</p>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg shadow text-center hover:shadow-lg transition-shadow">
+                        <div class="text-3xl mb-2">🧩</div>
+                        <h4 class="font-semibold text-gray-800">多機能・オールインワン</h4>
+                        <p class="text-sm text-gray-600">利便性と高機能性を両立</p>
+                    </div>
+                    <div class="bg-gray-100 p-4 rounded-lg shadow text-center hover:shadow-lg transition-shadow">
+                        <div class="text-3xl mb-2">🔬</div>
+                        <h4 class="font-semibold text-gray-800">成分主導型製品</h4>
+                        <p class="text-sm text-gray-600">レチノール、セラミドなど実績ある成分</p>
+                    </div>
+                </div>
+                
+                <h3 class="subsection-title">潜在的な成長分野</h3>
+                 <p class="text-gray-600 mb-4">まだ開拓の余地がある分野に注目が集まります。</p>
+                <ul class="space-y-2 mb-8 columns-1 md:columns-2">
+                    <li class="list-item text-gray-700">特定の男性の肌悩み対応 (例: 夜間の脂性肌対策)</li>
+                    <li class="list-item text-gray-700">敏感肌向け夜間ケア製品の充実</li>
+                    <li class="list-item text-gray-700">「リカバリー」訴求 (例: スポーツ後、ストレス肌向け)</li>
+                    <li class="list-item text-gray-700">エントリーレベルのシンプル＆手頃な夜間製品</li>
+                </ul>
+
+                <h3 class="subsection-title">市場成長の課題</h3>
+                <div class="bg-red-50 border-l-4 border-red-500 text-red-700 p-4 rounded-md" role="alert">
+                    <p class="font-bold">注意すべき点</p>
+                    <ul class="list-disc list-inside text-sm">
+                        <li>夜間ケアの利点に関する消費者教育の必要性。</li>
+                        <li>多数のブランドが参入する中での差別化。</li>
+                        <li>既存のシンプルなケア習慣からのステップアップのハードル。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <section id="strategic-recommendations" class="mb-12">
+            <div class="card">
+                <h2 class="section-title">成功への羅針盤：市場参入企業への戦略的提言</h2>
+                <p class="text-center text-gray-700 mb-8">成長が期待される男性向け夜間スキンケア市場で成功を収めるために、企業はどのような戦略を取るべきでしょうか。製品開発からマーケティング、差別化に至るまでのポイントを整理します。</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-blue-50 p-6 rounded-lg shadow">
+                        <h3 class="font-semibold text-xl text-blue-700 mb-3">製品開発とイノベーション</h3>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            <li class="flex"><span class="text-blue-500 mr-2">✨</span>効果とターゲットソリューション重視</li>
+                            <li class="flex"><span class="text-blue-500 mr-2">⏱️</span>利便性と心地よいテクスチャー</li>
+                            <li class="flex"><span class="text-blue-500 mr-2">😴</span>「快眠」要素の導入 (香りなど)</li>
+                            <li class="flex"><span class="text-blue-500 mr-2">🛡️</span>敏感肌への対応</li>
+                        </ul>
+                    </div>
+                    <div class="bg-teal-50 p-6 rounded-lg shadow">
+                        <h3 class="font-semibold text-xl text-teal-700 mb-3">マーケティング戦略</h3>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            <li class="flex"><span class="text-teal-500 mr-2">💡</span>「なぜ夜なのか？」の啓発</li>
+                            <li class="flex"><span class="text-teal-500 mr-2">📈</span>便益主導のメッセージ</li>
+                            <li class="flex"><span class="text-teal-500 mr-2">🗣️</span>インフルエンサー活用</li>
+                            <li class="flex"><span class="text-teal-500 mr-2">💻</span>デジタルファーストアプローチ</li>
+                            <li class="flex"><span class="text-teal-500 mr-2">🔄</span>シンプルなルーティン提案</li>
+                        </ul>
+                    </div>
+                    <div class="bg-yellow-50 p-6 rounded-lg shadow">
+                        <h3 class="font-semibold text-xl text-yellow-700 mb-3">差別化の機会</h3>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            <li class="flex"><span class="text-yellow-500 mr-2">📦</span>サブスクリプションモデル</li>
+                            <li class="flex"><span class="text-yellow-500 mr-2">🌍</span>「クリーン＆エシカル」訴求</li>
+                            <li class="flex"><span class="text-yellow-500 mr-2">🔬</span>先進的成分への注力</li>
+                            <li class="flex"><span class="text-yellow-500 mr-2">🚪</span>夜間ケアへの「ゲートウェイ」戦略</li>
+                        </ul>
+                    </div>
+                </div>
+                 <p class="text-sm text-gray-700 mt-8">夜間スキンケアを単なる「美容」ではなく、「パフォーマンスと回復のツール」として位置づけることも、特定の男性層に響く可能性があります。</p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-800 text-white py-8 text-center">
+        <div class="container mx-auto px-6">
+             <div class="mb-8 card gemini-feature-card !bg-gray-700 !border-teal-500">
+                <h3 class="text-xl font-semibold text-teal-300 mb-3">✨ 今夜の美肌のヒント</h3>
+                <button id="getNightlyTipButton" class="gemini-button !bg-teal-500 hover:!bg-teal-600 mb-3">ヒントをもらう</button>
+                <div id="nightlyTipLoading" class="text-gray-300 my-2 hidden">
+                    <div role="status" class="inline-block h-6 w-6 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" ></div>
+                    AIがヒントを生成中...
+                </div>
+                <div id="nightlyTipError" class="text-red-400 my-2 hidden">エラーが発生しました。</div>
+                <p id="nightlyTipResult" class="text-gray-200 italic"></p>
+            </div>
+
+            <p class="text-lg font-semibold mb-2">結論</p>
+            <p class="text-sm mb-4 max-w-3xl mx-auto">
+                日本の男性向け夜間スキンケア市場は、明確な市場規模データこそ確立途上ですが、関連製品の力強い成長と消費者意識の変化を背景に、大きな成長潜在力を秘めています。男性の美容意識の高まりという追い風を捉え、効果と利便性を両立させた製品と的確なコミュニケーション戦略を展開することで、今後数年間で顕著な成長が期待されます。AIを活用したパーソナルな提案は、この成長をさらに加速させるでしょう。
+            </p>
+            <p class="text-xs text-gray-400">本インフォグラフィックは提供された「メンズ夜間美容市場規模調査」レポートに基づいて作成されました。AI機能はGoogle Gemini APIを利用しています。</p>
+        </div>
+    </footer>
+
+    <script>
+        const defaultChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: {
+                            size: 10
+                        },
+                        padding:10,
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            } else {
+                              return label;
+                            }
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        font: {
+                            size: 10
+                        }
+                    }
+                },
+                x: {
+                    ticks: {
+                        font: {
+                            size: 10
+                        },
+                        callback: function(value, index, values) {
+                            const label = this.getLabelForValue(value);
+                            if (typeof label === 'string' && label.length > 16) {
+                                const words = label.split(' ');
+                                const lines = [];
+                                let currentLine = '';
+                                words.forEach(word => {
+                                    if ((currentLine + word).length > 16 && currentLine.length > 0) {
+                                        lines.push(currentLine.trim());
+                                        currentLine = word + ' ';
+                                    } else {
+                                        currentLine += word + ' ';
+                                    }
+                                });
+                                lines.push(currentLine.trim());
+                                return lines;
+                            }
+                            return label;
+                        }
+                    }
+                }
+            }
+        };
+
+        const wrapLabel = (str, maxWidth = 16) => {
+            if (typeof str === 'string' && str.length > maxWidth) {
+                const words = str.split(' ');
+                const lines = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + word).length > maxWidth && currentLine.length > 0) {
+                        lines.push(currentLine.trim());
+                        currentLine = word + ' ';
+                    } else {
+                        currentLine += word + ' ';
+                    }
+                });
+                lines.push(currentLine.trim());
+                return lines;
+            }
+            return str;
+        };
+        
+        const motivationChartCtx = document.getElementById('motivationChart').getContext('2d');
+        new Chart(motivationChartCtx, {
+            type: 'doughnut',
+            data: {
+                labels: [wrapLabel('肌の乾燥やトラブル改善のため'), wrapLabel('自分磨きの一環'), wrapLabel('年齢を重ね肌ケアに関心'), 'その他'],
+                datasets: [{
+                    label: 'スキンケアを始める動機',
+                    data: [31.2, 24.1, 19.4, 100 - 31.2 - 24.1 - 19.4],
+                    backgroundColor: ['#007BFF', '#17A2B8', '#FFC107', '#6c757d'],
+                    hoverOffset: 4
+                }]
+            },
+            options: defaultChartOptions
+        });
+
+        const categoryGrowthChartCtx = document.getElementById('categoryGrowthChart').getContext('2d');
+        new Chart(categoryGrowthChartCtx, {
+            type: 'bar',
+            data: {
+                labels: ['美容液 (2019年比)', 'クリーム (2017-22年比)'],
+                datasets: [{
+                    label: '成長倍率',
+                    data: [4.9, 2.0], 
+                    backgroundColor: ['#28A745', '#FFC107'],
+                    borderColor: ['#28A745', '#FFC107'],
+                    borderWidth: 1
+                }]
+            },
+            options: defaultChartOptions
+        });
+        
+        const skinCareMotivationsCtx = document.getElementById('skinCareMotivationsChart').getContext('2d');
+        new Chart(skinCareMotivationsCtx, {
+            type: 'bar',
+            data: {
+                labels: [wrapLabel('肌の乾燥やトラブル改善'), wrapLabel('自分磨きの一環'), wrapLabel('年齢を重ね肌ケアに関心')],
+                datasets: [{
+                    label: '該当者の割合 (%)',
+                    data: [31.2, 24.1, 19.4],
+                    backgroundColor: ['#007BFF', '#17A2B8', '#28A745'],
+                }]
+            },
+            options: defaultChartOptions
+        });
+
+        const skinCareBarriersCtx = document.getElementById('skinCareBarriersChart').getContext('2d');
+        new Chart(skinCareBarriersCtx, {
+            type: 'bar',
+            data: {
+                labels: [wrapLabel('時間がかかる'), wrapLabel('やることが多い'), wrapLabel('洗顔剤の泡立てが面倒')],
+                datasets: [{
+                    label: '該当者の割合 (%) (スキンケア実施者中)',
+                    data: [51.0, 18.3, 12.3],
+                    backgroundColor: ['#DC3545', '#FFC107', '#6c757d'],
+                }]
+            },
+            options: defaultChartOptions
+        });
+
+        // Gemini API Integration
+        const getAiAdviceButton = document.getElementById('getAiAdviceButton');
+        const aiAdviceLoading = document.getElementById('aiAdviceLoading');
+        const aiAdviceError = document.getElementById('aiAdviceError');
+        const aiAdviceResult = document.getElementById('aiAdviceResult');
+        const skinConcernCheckboxes = document.querySelectorAll('#skinConcerns input[type="checkbox"]');
+
+        const getNightlyTipButton = document.getElementById('getNightlyTipButton');
+        const nightlyTipLoading = document.getElementById('nightlyTipLoading');
+        const nightlyTipError = document.getElementById('nightlyTipError');
+        const nightlyTipResult = document.getElementById('nightlyTipResult');
+
+        const apiKey = ""; // APIキーは空のままにします
+
+        async function callGeminiAPI(prompt) {
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{ role: "user", parts: [{ text: prompt }] }]
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                if (!response.ok) {
+                    console.error("API Error Response:", await response.text());
+                    throw new Error(`API request failed with status ${response.status}`);
+                }
+                const result = await response.json();
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    return result.candidates[0].content.parts[0].text;
+                } else {
+                    console.error("Unexpected API response structure:", result);
+                    throw new Error("Unexpected API response structure.");
+                }
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                throw error;
+            }
+        }
+
+        getAiAdviceButton.addEventListener('click', async () => {
+            const selectedConcerns = Array.from(skinConcernCheckboxes)
+                                        .filter(checkbox => checkbox.checked)
+                                        .map(checkbox => checkbox.value);
+
+            if (selectedConcerns.length === 0) {
+                aiAdviceResult.innerHTML = '<p class="text-yellow-700 text-center">まず、肌の悩みを選択してください。</p>';
+                return;
+            }
+
+            aiAdviceLoading.classList.remove('hidden');
+            aiAdviceError.classList.add('hidden');
+            aiAdviceResult.innerHTML = '';
+
+            const prompt = `あなたは男性の夜間スキンケア専門のアドバイザーです。以下の肌の悩みを持つユーザーに、夜間に使うと効果的なスキンケア製品のタイプや主要成分を2～3つ提案してください。各提案には簡単な理由も添えてください。箇条書きで、提案ごとに「製品タイプ/成分：」と「理由：」の形式で記述してください。フレンドリーかつ専門的なトーンでお願いします。悩み: ${selectedConcerns.join('、')}`;
+
+            try {
+                const adviceText = await callGeminiAPI(prompt);
+                // AIの応答を整形して表示
+                const formattedAdvice = adviceText
+                    .split('\n') // 改行で分割
+                    .map(line => {
+                        if (line.startsWith('製品タイプ/成分：') || line.startsWith('理由：') || line.startsWith('・') || line.startsWith('* ')) {
+                            return `<p class="mb-1">${line.replace(/^(\*|\・)\s*/, '<span class="font-semibold text-blue-600 mr-1">●</span>')}</p>`;
+                        }
+                        return `<p class="mb-2">${line}</p>`;
+                    })
+                    .join('');
+                aiAdviceResult.innerHTML = `<h4 class="text-lg font-semibold text-blue-700 mb-3 text-center">AIからのアドバイス ✨</h4>${formattedAdvice}`;
+            } catch (error) {
+                aiAdviceError.classList.remove('hidden');
+                aiAdviceResult.innerHTML = '';
+            } finally {
+                aiAdviceLoading.classList.add('hidden');
+            }
+        });
+
+        getNightlyTipButton.addEventListener('click', async () => {
+            nightlyTipLoading.classList.remove('hidden');
+            nightlyTipError.classList.add('hidden');
+            nightlyTipResult.textContent = '';
+
+            const prompt = "男性の夜間スキンケアや睡眠と肌の関係について、役立つ短い豆知識やリラックスできる一言を生成してください。簡潔でポジティブな内容で、1つだけお願いします。";
+            
+            try {
+                const tipText = await callGeminiAPI(prompt);
+                nightlyTipResult.textContent = tipText;
+            } catch (error) {
+                nightlyTipError.classList.remove('hidden');
+            } finally {
+                nightlyTipLoading.classList.add('hidden');
+            }
+        });
+
+    </script>
+</body>
+</html>
