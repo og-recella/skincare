@@ -148,11 +148,11 @@
 
         <section id="salesPerformance" class="mb-12 stat-card">
             <h4 class="text-xl font-semibold mb-2 text-[#1A535C]">事業セグメント売上トレンド</h4>
-            <p class="text-gray-600 mb-6 text-sm">月次の売上高（税込）の推移です。このセグメントの成長性や季節変動、外部要因の影響などを考察する手がかりとなります。</p>
+            <p class="text-gray-600 mb-6 text-sm">月次の売上高（税抜）の推移です。このセグメントの成長性や季節変動、外部要因の影響などを考察する手がかりとなります。</p>
             <div class="chart-container">
                 <canvas id="salesChart"></canvas>
             </div>
-            <p class="mt-4 text-xs text-gray-500 text-center">グラフ: 月次売上高（税込）推移</p>
+            <p class="mt-4 text-xs text-gray-500 text-center">グラフ: 月次売上高（税抜）推移</p>
         </section>
 
         <section id="customerMetrics" class="mb-12">
@@ -484,7 +484,7 @@
             data: {
                 labels: wrappedLabels,
                 datasets: [{
-                    label: '売上高（税込）',
+                    label: '売上高（税抜）',
                     data: salesData,
                     borderColor: '#FF6B6B', 
                     backgroundColor: 'rgba(255, 107, 107, 0.2)',
