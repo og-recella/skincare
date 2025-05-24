@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>モールセグメント分析レポート インフォグラフィック</title>
+    <title>特定事業セグメント詳細分析 インフォグラフィック</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
@@ -66,25 +66,6 @@
             padding-bottom: 0.5rem; 
             border-bottom: 2px solid #4ECDC4; 
         }
-        .flow-step {
-            background-color: #4ECDC4; 
-            color: white;
-            padding: 0.75rem 1rem; 
-            border-radius: 0.375rem; 
-            text-align: center;
-            font-weight: 500; 
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .flow-arrow {
-            font-size: 1.5rem; 
-            color: #45B7D1; 
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
     </style>
     <!-- 
         Chosen Color Palette: "Energetic & Playful" (Conceptual - actual hex codes defined in <style>)
@@ -96,7 +77,6 @@
 
         Confirmation: Neither Mermaid JS nor SVG graphics were used in this infographic.
         All charts are rendered using Chart.js on Canvas.
-        Diagrams (like the process flow) are implemented using structured HTML and Tailwind CSS.
     -->
 </head>
 <body class="text-gray-800">
@@ -104,7 +84,7 @@
     <header class="bg-[#1A535C] text-white py-8 shadow-lg">
         <div class="container mx-auto px-6 text-center">
             <h1 class="text-4xl md:text-5xl font-bold text-[#4ECDC4]">特定事業セグメント パフォーマンスインサイト</h1>
-            <p class="mt-4 text-lg md:text-xl text-gray-300">Eコマース事業の直近6ヶ月トレンド分析</p>
+            <p class="mt-4 text-lg md:text-xl text-gray-300">Eコマース事業の直近6ヶ月トレンド分析 (ディープリサーチレポートより)</p>
         </div>
     </header>
 
@@ -113,7 +93,7 @@
         <section id="introduction" class="mb-12 stat-card">
             <h2 class="text-2xl font-semibold mb-4 text-[#1A535C]">はじめに：本レポートの目的と概要</h2>
             <p class="text-gray-700 leading-relaxed">
-                Amazon・楽天における過去6ヶ月間の主要業績評価指標（KPI）の動向を視覚的に分析し、その結果から得られるインサイトを提供することを目的としています。市場全体のトレンドを直接示すものではありませんが、この事業セグメントのパフォーマンス変動を通じて、ミクロな市場環境の変化や施策効果の一端を垣間見ることができます。データに基づいた現状理解を深め、今後の戦略立案に資する情報を提供します。
+                本インフォグラフィックは、特定のEコマース事業セグメントにおける過去6ヶ月間の主要業績評価指標（KPI）の動向を視覚的に分析し、その結果から得られるインサイトを提供することを目的としています。市場全体のトレンドを直接示すものではありませんが、この事業セグメントのパフォーマンス変動を通じて、ミクロな市場環境の変化や施策効果の一端を垣間見ることができます。データに基づいた現状理解を深め、今後の戦略立案に資する情報を提供します。
             </p>
         </section>
 
@@ -137,10 +117,10 @@
                 </div>
                 <div class="stat-card text-center">
                     <div>
-                        <p class="kpi-value" id="latestGrossProfitMargin">75.7<span class="text-base">%</span></p>
-                        <p class="kpi-label">当月粗利益率</p>
+                        <p class="kpi-value" id="latestNetGrossProfitMargin">0.0<span class="text-base">%</span></p>
+                        <p class="kpi-label">当月純粗利益率</p>
                     </div>
-                    <p class="kpi-change" id="grossProfitMarginMoMChange"></p>
+                    <p class="kpi-change" id="netGrossProfitMarginMoMChange"></p>
                 </div>
                 <div class="stat-card text-center">
                     <div>
@@ -215,12 +195,12 @@
         </section>
 
         <section id="profitabilityAnalysis" class="mb-12 stat-card">
-             <h4 class="text-xl font-semibold mb-2 text-[#1A535C]">収益性分析：粗利益率トレンド</h4>
-             <p class="text-gray-600 mb-6 text-sm">月次の粗利益率（売上総利益 / 売上高）の推移です。商品原価や販売価格戦略の妥当性、事業の基本的な収益力を示します。</p>
+             <h4 class="text-xl font-semibold mb-2 text-[#1A535C]">収益性分析：純粗利益率トレンド</h4>
+             <p class="text-gray-600 mb-6 text-sm">月次の純粗利益率（(売上総利益 - 手数料 - 配送費) / 売上高）の推移です。手数料や配送費を考慮した後の、より実態に近い利益力を示します。</p>
              <div class="chart-container">
-                 <canvas id="grossProfitMarginChart"></canvas>
+                 <canvas id="netGrossProfitMarginChart"></canvas>
              </div>
-             <p class="mt-4 text-xs text-gray-500 text-center">グラフ: 月次粗利益率推移</p>
+             <p class="mt-4 text-xs text-gray-500 text-center">グラフ: 月次純粗利益率推移</p>
         </section>
 
         <section id="adEfficiency" class="mb-12">
@@ -254,35 +234,19 @@
             </div>
         </section>
         
-        <section id="processFlow" class="mb-12 stat-card">
-            <h4 class="text-xl font-semibold mb-6 text-[#1A535C] text-center">Eコマース事業 成果創出プロセス（概念図）</h4>
-            <p class="text-gray-600 mb-8 text-center text-sm">広告投資から売上創出に至る基本的なプロセスと、各段階における主要KPIの関連性を示した概念図です。この流れを理解することが、改善ポイントの特定に繋がります。</p>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 items-center gap-2 md:gap-4 text-sm">
-                <div class="flow-step">広告投資<br>(Ad Spend)</div>
-                <div class="flow-arrow hidden sm:flex">➔</div>
-                <div class="flow-step">顧客獲得<br>(Customers, CPA)</div>
-                <div class="flow-arrow hidden md:flex">➔</div>
-                <div class="flow-step col-span-2 sm:col-span-1">注文行動<br>(Orders, Cust.CVR)</div>
-                <div class="flow-arrow hidden sm:flex">➔</div>
-                <div class="flow-step">単価向上<br>(AOV)</div>
-                <div class="flow-arrow hidden md:flex">➔</div>
-                <div class="flow-step">売上創出<br>(Sales, ROAS)</div>
-            </div>
-        </section>
-
         <section id="insights" class="stat-card">
             <h3 class="section-title">主要インサイトと考察</h3>
             <p class="text-gray-600 mb-6">本事業セグメントのデータ分析から得られた主要な洞察と、それに基づく考察を以下にまとめます。</p>
             <ul class="list-disc list-inside space-y-3 text-gray-700">
                 <li><strong class="text-[#FF6B6B]">集客効率の課題顕在化:</strong> 2025年4月において、顧客数が前月比<span class="font-semibold" id="insightCustomersMoM">-13.5%</span>と大幅に減少。同時にCPA（新規顧客獲得単価）が<span class="font-semibold" id="insightCPAMoM">23.9%悪化</span>し3,636円に達しており、新規顧客獲得の効率が著しく低下しています。これが当月の売上減（前月比-11.2%）の主因と考えられます。</li>
                 <li><strong class="text-[#4ECDC4]">顧客エンゲージメントと構成の変化:</strong> AOV（平均客単価）は<span class="font-semibold" id="insightAOVValue">4,750円</span>（前月比<span id="insightAOVMoM">+0.6%</span>改善）と底堅さを見せています。新規顧客獲得が鈍化（4月は440人）する一方で、既存顧客が顧客基盤の約67%（893人）を占めており、既存顧客への依存度が高まっている可能性があります。</li>
-                <li><strong class="text-purple-600">粗利益率の動向:</strong> 当月の粗利益率は<span class="font-semibold" id="insightGrossProfitMargin">75.7%</span>と高い水準を維持しており、前月比でも<span id="insightGrossProfitMarginMoM">+0.6pt改善</span>。これは商品原価管理や価格戦略が効果的であることを示唆しています。</li>
+                <li><strong class="text-purple-600">純粗利益率の動向:</strong> 当月の純粗利益率は<span class="font-semibold" id="insightNetGrossProfitMargin">55.7%</span>であり、前月比<span id="insightNetGrossProfitMarginMoM">+0.7pt改善</span>。手数料・配送費を考慮した実質的な利益率は改善傾向にあり、事業の基礎収益力は維持されています。</li>
                 <li><strong class="text-[#1A535C]">広告費比率の上昇とROASの微減:</strong> 広告費比率は<span class="font-semibold" id="insightAdCostRatio">21.1%</span>と、前月比<span id="insightAdCostRatioMoM">+0.3pt悪化</span>。ROASは4.74と依然として高い水準ではあるものの、前月から微減（<span id="insightROASMoM">-0.06pt</span>）。CPAの高騰がROASの足かせとなり、収益性を圧迫し始めている兆候が見られます。</li>
                 <li><strong class="text-gray-700">季節性と外部要因の考慮:</strong> 過去6ヶ月のデータからは、年末（12月）や年度末（3月）に売上・顧客数のピークが見られる傾向があります。4月の落ち込みには、これらの反動や市場全体の季節的要因も影響している可能性を考慮する必要があります。</li>
                 <li><strong class="text-[#45B7D1]">今後の戦略的視点:</strong>
                     <ul class="list-disc list-inside ml-4 mt-1 space-y-1 text-sm">
                         <li>最優先課題として、広告チャネルの最適化、ターゲティング精度の向上、クリエイティブ改善によるCPAの抑制と新規顧客獲得数の回復。</li>
-                        <li>強みである既存顧客のエンゲージメントと高い粗利益率を活かし、LTVを最大化するためのCRM施策やリピート購入促進策の強化。</li>
+                        <li>強みである既存顧客のエンゲージメントと改善傾向にある純粗利益率を活かし、LTVを最大化するためのCRM施策やリピート購入促進策の強化。</li>
                         <li>広告費比率とROAS、CPAのバランスを注視し、利益を最大化する広告運用モデルの再構築。</li>
                         <li>中長期的には、オーガニック流入増を目指したコンテンツ戦略や、新規集客チャネルの開拓も視野に入れるべきです。</li>
                     </ul>
@@ -292,7 +256,7 @@
          <section id="conclusion" class="mt-12 pt-8 border-t border-[#4ECDC4]">
             <h3 class="text-2xl font-semibold mb-4 text-[#1A535C] text-center">結論とアクションへの提言</h3>
             <p class="text-gray-700 leading-relaxed text-center max-w-3xl mx-auto">
-                本Eコマース事業セグメントは、高い粗利益率と既存顧客のエンゲージメントにおいて強みを持つものの、直近では新規顧客獲得の効率性に大きな課題を抱えています。短期的な収益改善のためには広告運用の抜本的な見直しが急務です。中長期的には、既存顧客のLTV最大化と、持続可能な集客モデルの構築が成長の鍵となるでしょう。データに基づき、迅速かつ柔軟な戦略調整を行うことが求められます。
+                本Eコマース事業セグメントは、改善傾向にある純粗利益率と既存顧客のエンゲージメントにおいて強みを持つものの、直近では新規顧客獲得の効率性に大きな課題を抱えています。短期的な収益改善のためには広告運用の抜本的な見直しが急務です。中長期的には、既存顧客のLTV最大化と、持続可能な集客モデルの構築が成長の鍵となるでしょう。データに基づき、迅速かつ柔軟な戦略調整を行うことが求められます。
             </p>
         </section>
     </main>
@@ -309,7 +273,9 @@
 
         const labels = ['2024年11月', '2024年12月', '2025年01月', '2025年02月', '2025年03月', '2025年04月'];
         const salesData = [8302029, 9180061, 6968472, 6497245, 8538667, 7585340]; 
-        const grossProfitData = [5990933, 6517996, 5136771, 4822270, 6407329, 5745041]; // 売上総利益データ
+        const grossProfitData = [5990933, 6517996, 5136771, 4822270, 6407329, 5745041]; 
+        const feesData = [766924.7544, 893287.4091, 671801.2917, 633440.0187, 816472.7181, 737421.7137]; // 合算_手数料
+        const shippingCostsData = [847292.3772, 946055.0338, 716868.2346, 669821.0914, 877043.0734, 781571.3234]; // 合算_配送費
         const customersData = [1790, 1887, 1408, 1294, 1541, 1333]; 
         const existingCustomersData = [686, 953, 752, 674, 935, 893];
         const newCustomersData = [1104, 934, 656, 620, 606, 440];
@@ -320,7 +286,13 @@
         
         const aovData = salesData.map((sale, index) => ordersData[index] > 0 ? (sale / ordersData[index]) : 0);
         const adCostRatioData = salesData.map((sale, index) => sale > 0 ? (adCostData[index] / sale * 100) : 0);
-        const grossProfitMarginData = salesData.map((sale, index) => sale > 0 ? (grossProfitData[index] / sale * 100) : 0);
+        const netGrossProfitMarginData = salesData.map((sale, index) => {
+            if (sale > 0) {
+                const netGrossProfit = grossProfitData[index] - feesData[index] - shippingCostsData[index];
+                return (netGrossProfit / sale * 100);
+            }
+            return 0;
+        });
 
 
         const latestIndex = labels.length - 1;
@@ -342,7 +314,7 @@
 
         const salesMoM = calculateMoM(salesData[latestIndex], salesData[prevIndex]);
         const customersMoM = calculateMoM(customersData[latestIndex], customersData[prevIndex]);
-        const grossProfitMarginMoM = calculateMoMPoints(grossProfitMarginData[latestIndex], grossProfitMarginData[prevIndex], 1, 'pt');
+        const netGrossProfitMarginMoM = calculateMoMPoints(netGrossProfitMarginData[latestIndex], netGrossProfitMarginData[prevIndex], 1, 'pt');
         const adCostRatioMoM = calculateMoMPoints(adCostRatioData[latestIndex], adCostRatioData[prevIndex], 1, 'pt'); 
         const roasMoM = calculateMoMPoints(roasData[latestIndex], roasData[prevIndex], 2, ''); 
         const cpaMoM = calculateMoM(cpaData[latestIndex], cpaData[prevIndex]); 
@@ -356,9 +328,9 @@
         document.getElementById('customersMoMChange').textContent = `前月比: ${customersMoM.text}`;
         document.getElementById('customersMoMChange').className = `kpi-change ${customersMoM.value > 0 ? 'positive-change' : customersMoM.value < 0 ? 'negative-change' : 'text-gray-500'}`;
         
-        document.getElementById('latestGrossProfitMargin').innerHTML = `${grossProfitMarginData[latestIndex].toFixed(1)}<span class="text-base">%</span>`;
-        document.getElementById('grossProfitMarginMoMChange').textContent = `前月比: ${grossProfitMarginMoM.text}`;
-        document.getElementById('grossProfitMarginMoMChange').className = `kpi-change ${grossProfitMarginMoM.value > 0 ? 'positive-change' : grossProfitMarginMoM.value < 0 ? 'negative-change' : 'text-gray-500'}`;
+        document.getElementById('latestNetGrossProfitMargin').innerHTML = `${netGrossProfitMarginData[latestIndex].toFixed(1)}<span class="text-base">%</span>`;
+        document.getElementById('netGrossProfitMarginMoMChange').textContent = `前月比: ${netGrossProfitMarginMoM.text}`;
+        document.getElementById('netGrossProfitMarginMoMChange').className = `kpi-change ${netGrossProfitMarginMoM.value >= 0 ? 'positive-change' : 'negative-change'}`;
 
 
         document.getElementById('latestAdCostRatio').innerHTML = `${adCostRatioData[latestIndex].toFixed(1)}<span class="text-base">%</span>`;
@@ -384,14 +356,13 @@
         document.getElementById('insightAdCostRatio').textContent = `${adCostRatioData[latestIndex].toFixed(1)}%`;
         document.getElementById('insightAdCostRatioMoM').textContent = `${adCostRatioMoM.text}${adCostRatioMoM.value > 0 ? '悪化' : adCostRatioMoM.value < 0 ? '改善' : ''}`;
         
-        document.getElementById('insightGrossProfitMargin').textContent = `${grossProfitMarginData[latestIndex].toFixed(1)}%`;
-        document.getElementById('insightGrossProfitMarginMoM').textContent = `${grossProfitMarginMoM.text}${grossProfitMarginMoM.value >= 0 ? '改善' : '悪化'}`;
+        document.getElementById('insightNetGrossProfitMargin').textContent = `${netGrossProfitMarginData[latestIndex].toFixed(1)}%`;
+        document.getElementById('insightNetGrossProfitMarginMoM').textContent = `${netGrossProfitMarginMoM.text}${netGrossProfitMarginMoM.value >= 0 ? '改善' : '悪化'}`;
 
 
         const insightCustomerEngagementElement = document.querySelector('#insights ul li:nth-child(2) strong.text-\\[\\#4ECDC4\\]').parentNode;
         if (insightCustomerEngagementElement) {
             insightCustomerEngagementElement.innerHTML = `<strong class="text-[#4ECDC4]">顧客エンゲージメントと構成の変化:</strong> AOV（平均客単価）は<span class="font-semibold" id="insightAOVValueText">${aovData[latestIndex].toFixed(0)}円</span>（前月比<span id="insightAOVMoMText">${aovMoM.text}</span>）と底堅さを見せています。新規顧客獲得が鈍化（4月は${newCustomersData[latestIndex]}人）する一方で、既存顧客が顧客基盤の約${((existingCustomersData[latestIndex]/customersData[latestIndex])*100).toFixed(0)}%（${existingCustomersData[latestIndex]}人）を占めており、既存顧客への依存度が高まっている可能性があります。`;
-            // Re-apply innerHTML for AOVMoM as it was part of the replaced string
             const insightAOVMoMTextElement = document.getElementById('insightAOVMoMText');
             if (insightAOVMoMTextElement) insightAOVMoMTextElement.textContent = aovMoM.text;
         }
@@ -568,7 +539,7 @@
                 datasets: [{
                     label: '平均客単価 (円)',
                     data: aovData,
-                    borderColor: '#FF6B6B', // Changed color for better distinction
+                    borderColor: '#FF6B6B', 
                     backgroundColor: 'rgba(255, 107, 107, 0.1)',
                     tension: 0.1,
                     yAxisID: 'yCurrency'
@@ -577,14 +548,14 @@
             options: defaultChartOptions
         });
         
-        new Chart(document.getElementById('grossProfitMarginChart'), { // New chart for Gross Profit Margin
+        new Chart(document.getElementById('netGrossProfitMarginChart'), { 
             type: 'line',
             data: {
                 labels: wrappedLabels,
                 datasets: [{
-                    label: '粗利益率 (%)',
-                    data: grossProfitMarginData,
-                    borderColor: '#8E44AD', // Purple for distinction
+                    label: '純粗利益率 (%)',
+                    data: netGrossProfitMarginData,
+                    borderColor: '#8E44AD', 
                     backgroundColor: 'rgba(142, 68, 173, 0.1)',
                     tension: 0.1,
                     fill: true,
