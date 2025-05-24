@@ -3,106 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eコマース事業パフォーマンス インフォグラフィック</title>
+    <title>特定事業セグメント詳細分析 インフォグラフィック</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', 'Noto Sans JP', sans-serif;
-            background-color: #F7FFF7; /* Light Green/Off-white from selected palette */
+            background-color: #F7FFF7; 
         }
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 700px; /* Adjusted for better readability */
+            max-width: 700px; 
             margin-left: auto;
             margin-right: auto;
-            height: 320px; /* Base height sm:h-80 */
+            height: 320px; 
         }
-        @media (min-width: 768px) { /* md breakpoint */
+        @media (min-width: 768px) { 
             .chart-container {
-                height: 400px; /* md:h-96 */
+                height: 400px; 
             }
         }
         .stat-card {
             background-color: white;
-            border-radius: 0.5rem; /* rounded-lg */
-            padding: 1.5rem; /* p-6 */
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
-            margin-bottom: 1.5rem; /* mb-6 */
+            border-radius: 0.5rem; 
+            padding: 1.5rem; 
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); 
+            margin-bottom: 1.5rem; 
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
         .kpi-value {
-            font-size: 2.0rem; /* text-3xl, adjusted for 5 cards */
-            font-weight: 700; /* font-bold */
-            color: #FF6B6B; /* Vibrant Red/Coral - Primary */
+            font-size: 2.0rem; 
+            font-weight: 700; 
+            color: #FF6B6B; 
         }
         .kpi-label {
-            font-size: 0.875rem; /* text-sm */
-            color: #1A535C; /* Dark Teal - Text */
-            margin-top: 0.25rem; /* mt-1 */
+            font-size: 0.875rem; 
+            color: #1A535C; 
+            margin-top: 0.25rem; 
         }
         .kpi-change {
-            font-size: 0.875rem; /* text-sm */
-            font-weight: 600; /* font-semibold */
-            margin-top: 0.25rem; /* mt-1 */
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            margin-top: 0.25rem; 
         }
         .positive-change {
-            color: #28a745; /* Green for positive change */
+            color: #28a745; 
         }
         .negative-change {
-            color: #dc3545; /* Red for negative change */
+            color: #dc3545; 
         }
-        h1, h2, h3 {
-            color: #1A535C; /* Dark Teal - Text */
+        h1, h2, h3, h4 {
+            color: #1A535C; 
         }
         .section-title {
-            font-size: 1.875rem; /* text-3xl */
-            font-weight: 700; /* font-bold */
-            margin-bottom: 1rem; /* mb-4 */
-            padding-bottom: 0.5rem; /* pb-2 */
-            border-bottom: 2px solid #4ECDC4; /* Teal - Secondary */
-        }
-        .accent-text {
-            color: #FF6B6B; /* Vibrant Red/Coral - Primary */
-        }
-        .secondary-text {
-            color: #4ECDC4; /* Teal - Secondary */
+            font-size: 1.875rem; 
+            font-weight: 700; 
+            margin-bottom: 1rem; 
+            padding-bottom: 0.5rem; 
+            border-bottom: 2px solid #4ECDC4; 
         }
         .flow-step {
-            background-color: #4ECDC4; /* Teal */
+            background-color: #4ECDC4; 
             color: white;
-            padding: 0.75rem 1rem; /* p-3 p-4 */
-            border-radius: 0.375rem; /* rounded-md */
+            padding: 0.75rem 1rem; 
+            border-radius: 0.375rem; 
             text-align: center;
-            font-weight: 500; /* font-medium */
+            font-weight: 500; 
             min-height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
         .flow-arrow {
-            font-size: 1.5rem; /* text-2xl */
-            color: #45B7D1; /* Sky Blue */
+            font-size: 1.5rem; 
+            color: #45B7D1; 
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        .download-button {
-            background-color: #4ECDC4; /* Teal - Secondary */
-            color: white;
-            padding: 0.5rem 1rem; /* py-2 px-4 */
-            border-radius: 0.375rem; /* rounded-md */
-            font-weight: 600; /* font-semibold */
-            transition: background-color 0.3s ease;
-        }
-        .download-button:hover {
-            background-color: #45B7D1; /* Sky Blue - Accent on hover */
         }
     </style>
     <!-- 
@@ -122,16 +103,23 @@
 
     <header class="bg-[#1A535C] text-white py-8 shadow-lg">
         <div class="container mx-auto px-6 text-center">
-            <h1 class="text-4xl md:text-5xl font-bold text-[#4ECDC4]">Eコマース事業パフォーマンス分析</h1>
-            <p class="mt-4 text-lg md:text-xl text-gray-300">直近6ヶ月の主要KPIトレンドとインサイト</p>
-            <button id="downloadReportBtn" class="download-button mt-6">レポートをダウンロード (PDF)</button>
+            <h1 class="text-4xl md:text-5xl font-bold text-[#4ECDC4]">特定事業セグメント パフォーマンスインサイト</h1>
+            <p class="mt-4 text-lg md:text-xl text-gray-300">Eコマース事業の直近6ヶ月トレンド分析 (ディープリサーチレポートより)</p>
         </div>
     </header>
 
     <main class="container mx-auto px-4 md:px-6 py-8">
 
+        <section id="introduction" class="mb-12 stat-card">
+            <h2 class="text-2xl font-semibold mb-4 text-[#1A535C]">はじめに：本レポートの目的と概要</h2>
+            <p class="text-gray-700 leading-relaxed">
+                本インフォグラフィックは、特定のEコマース事業セグメントにおける過去6ヶ月間の主要業績評価指標（KPI）の動向を視覚的に分析し、その結果から得られるインサイトを提供することを目的としています。市場全体のトレンドを直接示すものではありませんが、この事業セグメントのパフォーマンス変動を通じて、ミクロな市場環境の変化や施策効果の一端を垣間見ることができます。データに基づいた現状理解を深め、今後の戦略立案に資する情報を提供します。
+            </p>
+        </section>
+
         <section id="overview" class="mb-12">
-            <h2 class="section-title">主要指標サマリー（2025年04月）</h2>
+            <h3 class="section-title">主要指標サマリー（2025年04月）</h3>
+            <p class="text-gray-600 mb-6">最新月の主要KPIとその前月からの変動を示します。事業の現在のスナップショットを把握できます。</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                 <div class="stat-card text-center">
                     <div>
@@ -169,50 +157,48 @@
                     <p class="kpi-change" id="cpaMoMChange"></p>
                 </div>
             </div>
-            <p class="mt-6 text-center text-gray-600 text-md">
-                2025年4月は、前月比で売上・顧客数が減少傾向にありましたが、顧客エンゲージメント指標には一部改善も見られました。詳細は各グラフでご確認ください。
-            </p>
         </section>
 
         <section id="salesPerformance" class="mb-12 stat-card">
-            <h3 class="text-2xl font-semibold mb-2 text-[#1A535C]">売上高パフォーマンス</h3>
-            <p class="text-gray-600 mb-6">月次の売上高（税込）の推移を示します。市場の季節性やキャンペーン効果の変動を読み取ることができます。</p>
+            <h4 class="text-xl font-semibold mb-2 text-[#1A535C]">事業セグメント売上トレンド</h4>
+            <p class="text-gray-600 mb-6 text-sm">月次の売上高（税込）の推移です。このセグメントの成長性や季節変動、外部要因の影響などを考察する手がかりとなります。</p>
             <div class="chart-container">
                 <canvas id="salesChart"></canvas>
             </div>
-            <p class="mt-4 text-sm text-gray-500 text-center">グラフ: 月次売上高（税込）推移</p>
+            <p class="mt-4 text-xs text-gray-500 text-center">グラフ: 月次売上高（税込）推移</p>
         </section>
 
         <section id="customerMetrics" class="mb-12">
-            <h2 class="section-title">顧客獲得とエンゲージメント</h2>
+            <h3 class="section-title">顧客動向分析</h3>
+            <p class="text-gray-600 mb-6">顧客数、注文件数、および顧客あたりの購買行動や単価の変動を分析し、顧客エンゲージメントの質と量を評価します。</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="stat-card">
-                    <h3 class="text-xl font-semibold mb-2 text-[#1A535C]">月次顧客数</h3>
-                    <p class="text-gray-600 mb-4 text-sm">アクティブな顧客数の月次推移です。集客施策の効果や市場の関心度を反映します。</p>
+                    <h4 class="text-lg font-semibold mb-2 text-[#1A535C]">月次顧客数</h4>
+                    <p class="text-gray-600 mb-4 text-xs">当セグメントにおけるアクティブ顧客数の月次変動。市場へのリーチや集客施策の効果を示唆します。</p>
                     <div class="chart-container h-72 md:h-80">
                         <canvas id="customersChart"></canvas>
                     </div>
                     <p class="mt-2 text-xs text-gray-500 text-center">グラフ: 月次顧客数推移</p>
                 </div>
                 <div class="stat-card">
-                    <h3 class="text-xl font-semibold mb-2 text-[#1A535C]">月次注文件数</h3>
-                    <p class="text-gray-600 mb-4 text-sm">月ごとの総注文件数の変動を示します。顧客数と購入頻度の両方に影響されます。</p>
+                    <h4 class="text-lg font-semibold mb-2 text-[#1A535C]">月次注文件数</h4>
+                    <p class="text-gray-600 mb-4 text-xs">月ごとの総注文件数の変動。顧客数と顧客あたりの購入頻度の両方に影響されます。</p>
                     <div class="chart-container h-72 md:h-80">
                         <canvas id="ordersChart"></canvas>
                     </div>
                      <p class="mt-2 text-xs text-gray-500 text-center">グラフ: 月次注文件数推移</p>
                 </div>
                 <div class="stat-card">
-                    <h3 class="text-xl font-semibold mb-2 text-[#1A535C]">顧客コンバージョン率 (顧客CVR)</h3>
-                    <p class="text-gray-600 mb-4 text-sm">顧客あたりの平均注文件数に近い指標です。(注文件数 / 顧客数) × 100% で算出。</p>
+                    <h4 class="text-lg font-semibold mb-2 text-[#1A535C]">既存顧客と新規顧客の推移</h4>
+                    <p class="text-gray-600 mb-4 text-xs">月ごとの既存顧客数と新規顧客数の変動を示します。顧客基盤の成長と新規獲得のバランスを把握できます。</p>
                     <div class="chart-container h-72 md:h-80">
-                        <canvas id="customerCVRChart"></canvas>
+                        <canvas id="customerCompositionChart"></canvas>
                     </div>
-                     <p class="mt-2 text-xs text-gray-500 text-center">グラフ: 月次顧客CVR推移</p>
+                     <p class="mt-2 text-xs text-gray-500 text-center">グラフ: 既存顧客・新規顧客数 推移</p>
                 </div>
                 <div class="stat-card">
-                    <h3 class="text-xl font-semibold mb-2 text-[#1A535C]">平均客単価 (AOV)</h3>
-                    <p class="text-gray-600 mb-4 text-sm">1注文あたりの平均購入金額です。商品構成やアップセル戦略の効果を示します。</p>
+                    <h4 class="text-lg font-semibold mb-2 text-[#1A535C]">平均客単価 (AOV)</h4>
+                    <p class="text-gray-600 mb-4 text-xs">1注文あたりの平均購入金額。商品構成、価格戦略、アップセル/クロスセル施策の効果を反映します。</p>
                     <div class="chart-container h-72 md:h-80">
                         <canvas id="aovChart"></canvas>
                     </div>
@@ -222,19 +208,28 @@
         </section>
 
         <section id="adEfficiency" class="mb-12">
-            <h2 class="section-title">広告効果分析</h2>
-             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <h3 class="section-title">広告投資効率分析</h3>
+            <p class="text-gray-600 mb-6">広告費比率、ROAS（広告費用対効果）、CPA（新規顧客獲得単価）の推移から、広告投資の効率性と収益性を評価します。</p>
+             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="stat-card">
-                    <h3 class="text-xl font-semibold mb-2 text-[#1A535C]">ROAS (広告費用対効果)</h3>
-                    <p class="text-gray-600 mb-4 text-sm">投下した広告費に対してどれだけの売上があったかを示します。高いほど効率的です。</p>
+                    <h4 class="text-lg font-semibold mb-2 text-[#1A535C]">広告費比率 (売上対比)</h4>
+                    <p class="text-gray-600 mb-4 text-xs">売上高に占める広告費の割合。事業の収益構造と広告依存度を示します。</p>
+                    <div class="chart-container h-72 md:h-80">
+                        <canvas id="adCostRatioChart"></canvas>
+                    </div>
+                    <p class="mt-2 text-xs text-gray-500 text-center">グラフ: 月次広告費比率推移</p>
+                </div>
+                <div class="stat-card">
+                    <h4 class="text-lg font-semibold mb-2 text-[#1A535C]">ROAS (広告費用対効果)</h4>
+                    <p class="text-gray-600 mb-4 text-xs">投下した広告費に対してどれだけの売上があったかを示します。マーケティングROIの重要な指標です。</p>
                     <div class="chart-container h-72 md:h-80">
                         <canvas id="roasChart"></canvas>
                     </div>
                     <p class="mt-2 text-xs text-gray-500 text-center">グラフ: 月次ROAS推移</p>
                 </div>
                 <div class="stat-card">
-                    <h3 class="text-xl font-semibold mb-2 text-[#1A535C]">CPA (新規顧客獲得単価)</h3>
-                    <p class="text-gray-600 mb-4 text-sm">新規顧客を1人獲得するためにかかった広告費用です。低いほど効率的です。</p>
+                    <h4 class="text-lg font-semibold mb-2 text-[#1A535C]">CPA (新規顧客獲得単価)</h4>
+                    <p class="text-gray-600 mb-4 text-xs">新規顧客を1人獲得するためにかかった広告費用。顧客獲得効率の直接的な指標です。</p>
                     <div class="chart-container h-72 md:h-80">
                         <canvas id="cpaChart"></canvas>
                     </div>
@@ -244,8 +239,8 @@
         </section>
         
         <section id="processFlow" class="mb-12 stat-card">
-            <h3 class="text-2xl font-semibold mb-6 text-[#1A535C] text-center">Eコマース 顧客価値創造プロセス（概念図）</h3>
-            <p class="text-gray-600 mb-8 text-center">広告投資から売上創出までの基本的な流れと主要KPIの関連性を示します。</p>
+            <h4 class="text-xl font-semibold mb-6 text-[#1A535C] text-center">Eコマース事業 成果創出プロセス（概念図）</h4>
+            <p class="text-gray-600 mb-8 text-center text-sm">広告投資から売上創出に至る基本的なプロセスと、各段階における主要KPIの関連性を示した概念図です。この流れを理解することが、改善ポイントの特定に繋がります。</p>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 items-center gap-2 md:gap-4 text-sm">
                 <div class="flow-step">広告投資<br>(Ad Spend)</div>
                 <div class="flow-arrow hidden sm:flex">➔</div>
@@ -257,56 +252,58 @@
                 <div class="flow-arrow hidden md:flex">➔</div>
                 <div class="flow-step">売上創出<br>(Sales, ROAS)</div>
             </div>
-            <p class="mt-6 text-xs text-gray-500 text-center">
-                このプロセス全体を最適化することが事業成長に繋がります。各KPIは相互に関連し影響を与え合います。
-            </p>
         </section>
 
         <section id="insights" class="stat-card">
-            <h2 class="section-title">主要インサイトと今後の視点</h2>
+            <h3 class="section-title">主要インサイトと考察</h3>
+            <p class="text-gray-600 mb-6">本事業セグメントのデータ分析から得られた主要な洞察と、それに基づく考察を以下にまとめます。</p>
             <ul class="list-disc list-inside space-y-3 text-gray-700">
-                <li><strong class="text-[#FF6B6B]">顧客獲得の課題:</strong> 2025年4月は顧客数が前月比<span class="font-semibold" id="insightCustomersMoM">-13.5%</span>と大幅に減少し、CPAも<span class="font-semibold" id="insightCPAMoM">23.9%悪化</span>（3,636円）。集客戦略と広告効率の見直しが最優先事項です。</li>
-                <li><strong class="text-[#4ECDC4]">エンゲージメントの維持:</strong> 一方で、顧客CVRは<span class="font-semibold">119.8%</span>（前月比<span id="insightCustomerCVRMoM">+2.1pt</span>）、AOVも<span class="font-semibold">4,750円</span>（前月比<span id="insightAOVMoM">+0.6%</span>）と微増。顧客一人ひとりの購買力は維持、あるいは若干向上している可能性があります。</li>
-                <li><strong class="secondary-text">広告費比率とROAS:</strong> 当月の広告費比率は<span class="font-semibold" id="insightAdCostRatio">21.1%</span>（前月比<span id="insightAdCostRatioMoM">+0.3pt悪化</span>）。ROASは4.74と比較的高い水準を維持していますが、前月比では<span class="font-semibold" id="insightROASMoM">-0.06</span>と微減。CPAの高騰が影響していると考えられます。</li>
-                <li><strong class="text-[#1A535C]">季節性とイベント影響:</strong> 過去データを見ると、年末（12月）や特定の月（3月）に売上や顧客数のピークが見られます。季節要因や大型キャンペーンの効果分析が重要です。</li>
-                <li><strong class="text-[#45B7D1]">今後のアクション:</strong>
+                <li><strong class="text-[#FF6B6B]">集客効率の課題顕在化:</strong> 2025年4月において、顧客数が前月比<span class="font-semibold" id="insightCustomersMoM">-13.5%</span>と大幅に減少。同時にCPA（新規顧客獲得単価）が<span class="font-semibold" id="insightCPAMoM">23.9%悪化</span>し3,636円に達しており、新規顧客獲得の効率が著しく低下しています。これが当月の売上減（前月比-11.2%）の主因と考えられます。</li>
+                <li><strong class="text-[#4ECDC4]">顧客エンゲージメントと構成の変化:</strong> AOV（平均客単価）は<span class="font-semibold">4,750円</span>（前月比<span id="insightAOVMoM">+0.6%</span>改善）と底堅さを見せています。新規顧客獲得が鈍化（4月は440人）する一方で、既存顧客が顧客基盤の約67%（893人）を占めており、既存顧客への依存度が高まっている可能性があります。</li>
+                <li><strong class="text-[#1A535C]">広告費比率の上昇とROASの微減:</strong> 広告費比率は<span class="font-semibold" id="insightAdCostRatio">21.1%</span>と、前月比<span id="insightAdCostRatioMoM">+0.3pt悪化</span>。ROASは4.74と依然として高い水準ではあるものの、前月から微減（<span id="insightROASMoM">-0.06pt</span>）。CPAの高騰がROASの足かせとなり、収益性を圧迫し始めている兆候が見られます。</li>
+                <li><strong class="text-gray-700">季節性と外部要因の考慮:</strong> 過去6ヶ月のデータからは、年末（12月）や年度末（3月）に売上・顧客数のピークが見られる傾向があります。4月の落ち込みには、これらの反動や市場全体の季節的要因も影響している可能性を考慮する必要があります。</li>
+                <li><strong class="text-[#45B7D1]">今後の戦略的視点:</strong>
                     <ul class="list-disc list-inside ml-4 mt-1 space-y-1 text-sm">
-                        <li>広告ターゲティングとクリエイティブの最適化によるCPA改善。</li>
-                        <li>既存顧客のリピート促進施策によるCVR・AOVの更なる向上。</li>
-                        <li>新規集客チャネルの模索とテスト。</li>
-                        <li>広告費比率を注視し、ROASとのバランスを最適化。</li>
+                        <li>最優先課題として、広告チャネルの最適化、ターゲティング精度の向上、クリエイティブ改善によるCPAの抑制と新規顧客獲得数の回復。</li>
+                        <li>強みである既存顧客のエンゲージメントをさらに伸ばしLTVを最大化するため、CRM施策やリピート購入促進策の強化。</li>
+                        <li>広告費比率とROAS、CPAのバランスを注視し、利益を最大化する広告運用モデルの再構築。</li>
+                        <li>中長期的には、オーガニック流入増を目指したコンテンツ戦略や、新規集客チャネルの開拓も視野に入れるべきです。</li>
                     </ul>
                 </li>
             </ul>
+        </section>
+         <section id="conclusion" class="mt-12 pt-8 border-t border-[#4ECDC4]">
+            <h3 class="text-2xl font-semibold mb-4 text-[#1A535C] text-center">結論とアクションへの提言</h3>
+            <p class="text-gray-700 leading-relaxed text-center max-w-3xl mx-auto">
+                本Eコマース事業セグメントは、顧客エンゲージメントにおいて一定の強みを持つものの、直近では新規顧客獲得の効率性に大きな課題を抱えています。短期的な収益改善のためには広告運用の抜本的な見直しが急務です。中長期的には、既存顧客のLTV最大化と、持続可能な集客モデルの構築が成長の鍵となるでしょう。データに基づき、迅速かつ柔軟な戦略調整を行うことが求められます。
+            </p>
         </section>
     </main>
 
     <footer class="bg-[#1A535C] text-gray-400 py-8 mt-12">
         <div class="container mx-auto px-6 text-center">
-            <p>&copy; <span id="currentYear"></span> Eコマース事業分析レポート. All rights reserved.</p>
+            <p>&copy; <span id="currentYear"></span> 特定事業セグメント分析レポート. All rights reserved.</p>
             <p class="text-xs mt-1">このインフォグラフィックは提供されたデータに基づき作成されました。</p>
         </div>
     </footer>
 
     <script>
         document.getElementById('currentYear').textContent = new Date().getFullYear();
-        const { jsPDF } = window.jspdf;
 
-        // --- Chart Data ---
         const labels = ['2024年11月', '2024年12月', '2025年01月', '2025年02月', '2025年03月', '2025年04月'];
         const salesData = [8302029, 9180061, 6968472, 6497245, 8538667, 7585340]; 
-        const customersData = [1790, 1887, 1408, 1294, 1541, 1333];
+        const customersData = [1790, 1887, 1408, 1294, 1541, 1333]; // Total Customers
+        const existingCustomersData = [686, 953, 752, 674, 935, 893];
+        const newCustomersData = [1104, 934, 656, 620, 606, 440];
         const ordersData = [2025, 2327, 1654, 1523, 1808, 1597];
         const adCostData = [5659183, 4032460, 2137580, 1607490, 1779128, 1599998];
         const roasData = [1.47, 2.28, 3.26, 4.04, 4.80, 4.74];
         const cpaData = [5126, 4317, 3259, 2593, 2936, 3636];
         
         const aovData = salesData.map((sale, index) => ordersData[index] > 0 ? (sale / ordersData[index]) : 0);
-        const customerCVRData = customersData.map((cust, index) => cust > 0 ? (ordersData[index] / cust * 100) : 0);
+        // const customerCVRData = customersData.map((cust, index) => cust > 0 ? (ordersData[index] / cust * 100) : 0); // No longer used
         const adCostRatioData = salesData.map((sale, index) => sale > 0 ? (adCostData[index] / sale * 100) : 0);
 
-
-        // --- Calculate MoM Changes for Overview ---
         const latestIndex = labels.length - 1;
         const prevIndex = labels.length - 2;
 
@@ -326,13 +323,13 @@
 
         const salesMoM = calculateMoM(salesData[latestIndex], salesData[prevIndex]);
         const customersMoM = calculateMoM(customersData[latestIndex], customersData[prevIndex]);
-        const adCostRatioMoM = calculateMoMPoints(adCostRatioData[latestIndex], adCostRatioData[prevIndex], 1, '%'); // % change in points
-        const roasMoM = calculateMoMPoints(roasData[latestIndex], roasData[prevIndex], 2, ''); // ROAS is a ratio
+        const adCostRatioMoM = calculateMoMPoints(adCostRatioData[latestIndex], adCostRatioData[prevIndex], 1, 'pt'); 
+        const roasMoM = calculateMoMPoints(roasData[latestIndex], roasData[prevIndex], 2, ''); 
         const cpaMoM = calculateMoM(cpaData[latestIndex], cpaData[prevIndex]); 
-        const customerCVRMoM = calculateMoMPoints(customerCVRData[latestIndex], customerCVRData[prevIndex], 1, 'pt'); 
+        // const customerCVRMoM = calculateMoMPoints(customerCVRData[latestIndex], customerCVRData[prevIndex], 1, 'pt'); // No longer used
         const aovMoM = calculateMoM(aovData[latestIndex], aovData[prevIndex]);
 
-        document.getElementById('latestSales').innerHTML = `${(salesData[latestIndex]/1000000).toFixed(1)}<span class="text-base">万円</span>`;
+        document.getElementById('latestSales').innerHTML = `${(salesData[latestIndex]/10000).toFixed(1)}<span class="text-base">万円</span>`;
         document.getElementById('salesMoMChange').textContent = `前月比: ${salesMoM.text}`;
         document.getElementById('salesMoMChange').className = `kpi-change ${salesMoM.value > 0 ? 'positive-change' : salesMoM.value < 0 ? 'negative-change' : 'text-gray-500'}`;
 
@@ -342,7 +339,7 @@
         
         document.getElementById('latestAdCostRatio').innerHTML = `${adCostRatioData[latestIndex].toFixed(1)}<span class="text-base">%</span>`;
         document.getElementById('adCostRatioMoMChange').textContent = `前月比: ${adCostRatioMoM.text}`;
-        document.getElementById('adCostRatioMoMChange').className = `kpi-change ${adCostRatioMoM.value > 0 ? 'negative-change' : adCostRatioMoM.value < 0 ? 'positive-change' : 'text-gray-500'}`; // Lower is better
+        document.getElementById('adCostRatioMoMChange').className = `kpi-change ${adCostRatioMoM.value > 0 ? 'negative-change' : adCostRatioMoM.value < 0 ? 'positive-change' : 'text-gray-500'}`;
 
         document.getElementById('latestROAS').textContent = roasData[latestIndex].toFixed(2);
         document.getElementById('roasMoMChange').textContent = `前月比: ${roasMoM.text}`;
@@ -354,26 +351,36 @@
 
         document.getElementById('insightCustomersMoM').textContent = customersMoM.text;
         document.getElementById('insightCPAMoM').textContent = `${cpaMoM.text}${cpaMoM.value > 0 ? '悪化' : cpaMoM.value < 0 ? '改善' : ''}`;
-        document.getElementById('insightCustomerCVRMoM').textContent = customerCVRMoM.text;
+        // document.getElementById('insightCustomerCVRMoM').textContent = customerCVRMoM.text; // Removed
         document.getElementById('insightAOVMoM').textContent = aovMoM.text;
         document.getElementById('insightROASMoM').textContent = roasMoM.text;
         document.getElementById('insightAdCostRatio').textContent = `${adCostRatioData[latestIndex].toFixed(1)}%`;
         document.getElementById('insightAdCostRatioMoM').textContent = `${adCostRatioMoM.text}${adCostRatioMoM.value > 0 ? '悪化' : adCostRatioMoM.value < 0 ? '改善' : ''}`;
+        
+        // Update the insight text related to CVR to reflect the new customer composition data
+        const insightCustomerEngagementElement = document.querySelector('#insights ul li:nth-child(2) strong.text-\\[\\#4ECDC4\\]').parentNode;
+        if (insightCustomerEngagementElement) {
+            insightCustomerEngagementElement.innerHTML = `<strong class="text-[#4ECDC4]">顧客エンゲージメントと構成の変化:</strong> AOV（平均客単価）は<span class="font-semibold">${aovData[latestIndex].toFixed(0)}円</span>（前月比<span id="insightAOVMoM">${aovMoM.text}</span>）と底堅さを見せています。新規顧客獲得が鈍化（4月は${newCustomersData[latestIndex]}人）する一方で、既存顧客が顧客基盤の約${((existingCustomersData[latestIndex]/customersData[latestIndex])*100).toFixed(0)}%（${existingCustomersData[latestIndex]}人）を占めており、既存顧客への依存度が高まっている可能性があります。`;
+            // Re-apply innerHTML for AOVMoM as it was part of the replaced string
+            document.getElementById('insightAOVMoM').textContent = aovMoM.text;
+        }
 
 
         function formatLabel(str, maxLength) {
-            if (str.length <= maxLength) return str;
-            const parts = [];
+            if (!str || typeof str.length === 'undefined' || str.length <= maxLength) return str;
+            const words = str.split(" ");
+            const lines = [];
             let currentLine = "";
-            str.split(" ").forEach(word => {
-                if ((currentLine + word).length > maxLength) {
-                    parts.push(currentLine.trim());
-                    currentLine = "";
+            for (const word of words) {
+                if ((currentLine + (currentLine ? " " : "") + word).length > maxLength && currentLine) {
+                    lines.push(currentLine);
+                    currentLine = word;
+                } else {
+                    currentLine += (currentLine ? " " : "") + word;
                 }
-                currentLine += word + " ";
-            });
-            parts.push(currentLine.trim());
-            return parts.filter(part => part.length > 0);
+            }
+            if (currentLine) lines.push(currentLine);
+            return lines.length > 0 ? lines : [str]; 
         }
         
         const defaultChartOptions = {
@@ -391,7 +398,11 @@
                 x: {
                     ticks: { 
                         color: '#1A535C',
-                        font: { family: "'Inter', 'Noto Sans JP', sans-serif" }
+                        font: { family: "'Inter', 'Noto Sans JP', sans-serif" },
+                        callback: function(value, index, ticks) {
+                            const label = this.getLabelForValue(value);
+                            return formatLabel(label, 16); 
+                        }
                     },
                     grid: { display: false }
                 }
@@ -411,10 +422,12 @@
                         title: function(tooltipItems) {
                             const item = tooltipItems[0];
                             let label = item.chart.data.labels[item.dataIndex];
-                            if (Array.isArray(label)) {
-                              return label.join(' ');
+                            if (Array.isArray(label)) { 
+                                return label.join(' '); 
+                            } else if (typeof label === 'string' && label.includes('\n')) { 
+                                return label.replace(/\n/g, ' ');
                             }
-                            return label;
+                            return label; 
                         },
                         label: function(context) {
                             let label = context.dataset.label || '';
@@ -439,11 +452,13 @@
                 }
             }
         };
+        
+        const wrappedLabels = labels.map(label => formatLabel(label, 16));
 
         new Chart(document.getElementById('salesChart'), {
             type: 'line',
             data: {
-                labels: labels,
+                labels: wrappedLabels,
                 datasets: [{
                     label: '売上高（税込）',
                     data: salesData,
@@ -458,47 +473,59 @@
         });
 
         new Chart(document.getElementById('customersChart'), {
-            type: 'bar',
+            type: 'line', 
             data: {
-                labels: labels,
+                labels: wrappedLabels,
                 datasets: [{
                     label: '顧客数',
                     data: customersData,
-                    backgroundColor: '#4ECDC4', 
-                    borderColor: '#45B7D1',
-                    borderWidth: 1
+                    borderColor: '#4ECDC4', 
+                    backgroundColor: 'rgba(78, 205, 196, 0.2)', 
+                    tension: 0.1,
+                    fill: true 
                 }]
             },
-            options: defaultChartOptions
+            options: defaultChartOptions 
         });
 
         new Chart(document.getElementById('ordersChart'), {
-            type: 'bar',
+            type: 'line', 
             data: {
-                labels: labels,
+                labels: wrappedLabels,
                 datasets: [{
                     label: '注文件数',
                     data: ordersData,
-                    backgroundColor: '#45B7D1', 
-                    borderColor: '#1A535C',
-                    borderWidth: 1
+                    borderColor: '#45B7D1', 
+                    backgroundColor: 'rgba(69, 183, 209, 0.2)', 
+                    tension: 0.1,
+                    fill: true 
                 }]
             },
-            options: defaultChartOptions
+            options: defaultChartOptions 
         });
         
-        new Chart(document.getElementById('customerCVRChart'), {
+        new Chart(document.getElementById('customerCompositionChart'), { // New chart for existing/new customers
             type: 'line',
             data: {
-                labels: labels,
-                datasets: [{
-                    label: '顧客CVR (%)',
-                    data: customerCVRData,
-                    borderColor: '#FF6B6B',
-                    backgroundColor: 'rgba(255, 107, 107, 0.1)',
-                    tension: 0.1,
-                    yAxisID: 'yPercentage'
-                }]
+                labels: wrappedLabels,
+                datasets: [
+                    {
+                        label: '既存顧客数',
+                        data: existingCustomersData,
+                        borderColor: '#4ECDC4', // Teal
+                        backgroundColor: 'rgba(78, 205, 196, 0.1)',
+                        tension: 0.1,
+                        fill: false
+                    },
+                    {
+                        label: '新規顧客数',
+                        data: newCustomersData,
+                        borderColor: '#45B7D1', // Sky Blue
+                        backgroundColor: 'rgba(69, 183, 209, 0.1)',
+                        tension: 0.1,
+                        fill: false
+                    }
+                ]
             },
             options: defaultChartOptions
         });
@@ -506,11 +533,11 @@
         new Chart(document.getElementById('aovChart'), {
             type: 'line',
             data: {
-                labels: labels,
+                labels: wrappedLabels,
                 datasets: [{
                     label: '平均客単価 (円)',
                     data: aovData,
-                    borderColor: '#4ECDC4',
+                    borderColor: '#4ECDC4', // Re-using Teal, consider a different color if needed
                     backgroundColor: 'rgba(78, 205, 196, 0.1)',
                     tension: 0.1,
                     yAxisID: 'yCurrency'
@@ -518,15 +545,32 @@
             },
             options: defaultChartOptions
         });
+        
+        new Chart(document.getElementById('adCostRatioChart'), {
+            type: 'line',
+            data: {
+                labels: wrappedLabels,
+                datasets: [{
+                    label: '広告費比率 (%)',
+                    data: adCostRatioData,
+                    borderColor: '#FFC107', 
+                    backgroundColor: 'rgba(255, 193, 7, 0.1)',
+                    tension: 0.1,
+                    yAxisID: 'yPercentage'
+                }]
+            },
+            options: defaultChartOptions
+        });
+
 
         new Chart(document.getElementById('roasChart'), {
             type: 'line',
             data: {
-                labels: labels,
+                labels: wrappedLabels,
                 datasets: [{
                     label: 'ROAS',
                     data: roasData,
-                    borderColor: '#45B7D1',
+                    borderColor: '#45B7D1', // Re-using Sky Blue
                     backgroundColor: 'rgba(69, 183, 209, 0.1)',
                     tension: 0.1,
                     yAxisID: 'yRatio'
@@ -538,7 +582,7 @@
         new Chart(document.getElementById('cpaChart'), {
             type: 'line',
             data: {
-                labels: labels,
+                labels: wrappedLabels,
                 datasets: [{
                     label: 'CPA (円)',
                     data: cpaData,
@@ -550,59 +594,6 @@
             },
             options: defaultChartOptions
         });
-
-        // --- PDF Download Functionality ---
-        const downloadButton = document.getElementById('downloadReportBtn');
-        downloadButton.addEventListener('click', function() {
-            const doc = new jsPDF();
-            
-            // Add Noto Sans JP font (assuming it's available or loaded somehow for jsPDF)
-            // This part is tricky with standard jsPDF. For full Japanese support,
-            // you might need a custom font setup or a jsPDF version with CJK support.
-            // For simplicity, we'll proceed without explicit font embedding for now,
-            // which might lead to garbled Japanese text if the viewing environment lacks the font.
-            // A more robust solution would involve embedding a base64 encoded ttf font.
-            // doc.addFont('NotoSansJP-Regular.ttf', 'NotoSansJP', 'normal'); // Example
-            // doc.setFont('NotoSansJP'); // Example
-
-            doc.setFontSize(18);
-            doc.text("Eコマース事業パフォーマンスレポート", 14, 22);
-            doc.setFontSize(11);
-            doc.setTextColor(100);
-            doc.text(`レポート期間: ${labels[0].replace('月','')} - ${labels[labels.length - 1].replace('月','')}`, 14, 30);
-
-            const tableColumn = ["日付", "売上高(税込)", "顧客数", "注文件数", "広告費比率(%)", "ROAS", "CPA(新規)", "客単価(AOV)", "顧客CVR(%)"];
-            const tableRows = [];
-
-            labels.forEach((label, index) => {
-                const rowData = [
-                    label.replace('月', ''),
-                    salesData[index].toLocaleString(),
-                    customersData[index].toLocaleString(),
-                    ordersData[index].toLocaleString(),
-                    adCostRatioData[index].toFixed(1),
-                    roasData[index].toFixed(2),
-                    cpaData[index].toLocaleString(),
-                    Math.round(aovData[index]).toLocaleString(),
-                    customerCVRData[index].toFixed(1)
-                ];
-                tableRows.push(rowData);
-            });
-
-            doc.autoTable({
-                head: [tableColumn],
-                body: tableRows,
-                startY: 35,
-                theme: 'grid',
-                headStyles: { fillColor: [26, 83, 92] }, // #1A535C (Dark Teal)
-                styles: { font: 'helvetica', fontSize: 8 }, // Using helvetica as a fallback
-                // If NotoSansJP was added:
-                // styles: { font: 'NotoSansJP', fontSize: 8 },
-            });
-            
-            doc.save('ecommerce_performance_report.pdf');
-        });
-
     </script>
 </body>
 </html>
