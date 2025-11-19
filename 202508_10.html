@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>特定事業セグメント詳細分析 インフォグラフィック</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js 本体のみ読み込み（日付アダプターを削除して安定化） -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', 'Noto Sans JP', sans-serif;
-            background-color: #f8f9fa; /* Light neutral background */
+            background-color: #f8f9fa;
         }
         .chart-container {
             position: relative;
@@ -39,11 +39,11 @@
         .kpi-value {
             font-size: 2.0rem; 
             font-weight: 700; 
-            color: #5A52F7; /* New Primary Color */
+            color: #5A52F7;
         }
         .kpi-label {
             font-size: 0.875rem; 
-            color: #334155; /* Darker text color for contrast */
+            color: #334155;
             margin-top: 0.25rem; 
         }
         .kpi-change {
@@ -52,20 +52,20 @@
             margin-top: 0.25rem; 
         }
         .positive-change {
-            color: #22c55e; /* Keep green for positive */
+            color: #22c55e;
         }
         .negative-change {
-            color: #ef4444; /* Keep red for negative */
+            color: #ef4444;
         }
         h1, h2, h3, h4 {
-            color: #1e293b; /* Dark Slate for headings */
+            color: #1e293b;
         }
         .section-title {
             font-size: 1.875rem; 
             font-weight: 700; 
             margin-bottom: 1rem; 
             padding-bottom: 0.5rem; 
-            border-bottom: 2px solid #527EF7; /* New Secondary Color */
+            border-bottom: 2px solid #527EF7;
         }
     </style>
 </head>
@@ -89,7 +89,7 @@
 
         <section id="overview" class="mb-12">
             <h3 class="section-title">主要指標サマリー（2025年10月）</h3>
-            <p class="text-gray-600 mb-6">最新月の主要KPIとその前月からの変動を示します。事業の現在のスナップショットを把握できます。</p>
+            <p class="text-gray-600 mb-6">最新月の主要KPIとその前月からの変動を示します。</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div class="stat-card text-center">
                     <div>
@@ -204,120 +204,15 @@
 
     <script>
         // --- Data ---
-        // Updated Operating Profit based on user input (units: Yen)
         const reportData = {
-            "2025-03-01": {
-                "sales": 8538667.0,
-                "roas": 5.947306578,
-                "cpa": 2369.174917,
-                "ad_cost": 1435720.0,
-                "promo_cost": 683788.0,
-                "customers": 1541.0,
-                "new_customers": 606.0,
-                "existing_customers": 935.0,
-                "gross_profit": 6407329.0,
-                "fees": 816472.7181,
-                "shipping": 877043.0734,
-                "operating_profit": 880000 // Updated
-            },
-            "2025-04-01": {
-                "sales": 7585340.0,
-                "roas": 5.639335146,
-                "cpa": 2861.865957,
-                "ad_cost": 1345077.0,
-                "promo_cost": 545286.0,
-                "customers": 1333.0,
-                "new_customers": 470.0,
-                "existing_customers": 863.0,
-                "gross_profit": 5745041.0,
-                "fees": 737421.7137,
-                "shipping": 781571.3234,
-                "operating_profit": 410000 // Updated
-            },
-            "2025-05-01": {
-                "sales": 7825620.0,
-                "roas": 4.442936773,
-                "cpa": 3594.616327,
-                "ad_cost": 1761362.0,
-                "promo_cost": 653447.0,
-                "customers": 1388.0,
-                "new_customers": 490.0,
-                "existing_customers": 898.0,
-                "gross_profit": 5964316.0,
-                "fees": 746175.6138,
-                "shipping": 803375.1876,
-                "operating_profit": 810000 // Updated
-            },
-            "2025-06-01": {
-                "sales": 8430130.0,
-                "roas": 7.064001549,
-                "cpa": 2420.675456,
-                "ad_cost": 1193393.0,
-                "promo_cost": 623235.0,
-                "customers": 1472.0,
-                "new_customers": 493.0,
-                "existing_customers": 979.0,
-                "gross_profit": 6456434.0,
-                "fees": 803859.1944,
-                "shipping": 865442.7208,
-                "operating_profit": 1490000 // Updated
-            },
-            "2025-07-01": {
-                "sales": 7945482.0,
-                "roas": 6.644268464,
-                "cpa": 2594.013015,
-                "ad_cost": 1195840.0,
-                "promo_cost": 417938.0,
-                "customers": 1418.0,
-                "new_customers": 461.0,
-                "existing_customers": 957.0,
-                "gross_profit": 6072395.0,
-                "fees": 766819.9029,
-                "shipping": 817543.965,
-                "operating_profit": 540000 // Updated
-            },
-            "2025-08-01": {
-                "sales": 7876417.0,
-                "roas": 7.51141482,
-                "cpa": 2834.035135,
-                "ad_cost": 1048593.0,
-                "promo_cost": 397297.0,
-                "customers": 1299.0,
-                "new_customers": 370.0,
-                "existing_customers": 929.0,
-                "gross_profit": 6095798.0,
-                "fees": 766722.7395,
-                "shipping": 811766.0002,
-                "operating_profit": 1450000 // Updated
-            },
-            "2025-09-01": {
-                "sales": 9223683.0,
-                "roas": 9.124887839,
-                "cpa": 2855.443503,
-                "ad_cost": 1010827.0,
-                "promo_cost": 603492.0,
-                "customers": 1317.0,
-                "new_customers": 354.0,
-                "existing_customers": 963.0,
-                "gross_profit": 7237523.0,
-                "fees": 871186.6161,
-                "shipping": 945222.207,
-                "operating_profit": 2440000 // Updated
-            },
-            "2025-10-01": {
-                "sales": 7589591.0,
-                "roas": 7.411434927,
-                "cpa": 3792.733333,
-                "ad_cost": 1024038.0,
-                "promo_cost": 388486.0,
-                "customers": 1097.0,
-                "new_customers": 270.0,
-                "existing_customers": 827.0,
-                "gross_profit": 5999377.0,
-                "fees": 738570.6774,
-                "shipping": 782158.1264,
-                "operating_profit": 1450000 // Updated
-            }
+            "2025-03-01": { "sales": 8538667.0, "roas": 5.947306578, "cpa": 2369.174917, "ad_cost": 1435720.0, "promo_cost": 683788.0, "customers": 1541.0, "new_customers": 606.0, "existing_customers": 935.0, "gross_profit": 6407329.0, "fees": 816472.7181, "shipping": 877043.0734, "operating_profit": 880000 },
+            "2025-04-01": { "sales": 7585340.0, "roas": 5.639335146, "cpa": 2861.865957, "ad_cost": 1345077.0, "promo_cost": 545286.0, "customers": 1333.0, "new_customers": 470.0, "existing_customers": 863.0, "gross_profit": 5745041.0, "fees": 737421.7137, "shipping": 781571.3234, "operating_profit": 410000 },
+            "2025-05-01": { "sales": 7825620.0, "roas": 4.442936773, "cpa": 3594.616327, "ad_cost": 1761362.0, "promo_cost": 653447.0, "customers": 1388.0, "new_customers": 490.0, "existing_customers": 898.0, "gross_profit": 5964316.0, "fees": 746175.6138, "shipping": 803375.1876, "operating_profit": 810000 },
+            "2025-06-01": { "sales": 8430130.0, "roas": 7.064001549, "cpa": 2420.675456, "ad_cost": 1193393.0, "promo_cost": 623235.0, "customers": 1472.0, "new_customers": 493.0, "existing_customers": 979.0, "gross_profit": 6456434.0, "fees": 803859.1944, "shipping": 865442.7208, "operating_profit": 1490000 },
+            "2025-07-01": { "sales": 7945482.0, "roas": 6.644268464, "cpa": 2594.013015, "ad_cost": 1195840.0, "promo_cost": 417938.0, "customers": 1418.0, "new_customers": 461.0, "existing_customers": 957.0, "gross_profit": 6072395.0, "fees": 766819.9029, "shipping": 817543.965, "operating_profit": 540000 },
+            "2025-08-01": { "sales": 7876417.0, "roas": 7.51141482, "cpa": 2834.035135, "ad_cost": 1048593.0, "promo_cost": 397297.0, "customers": 1299.0, "new_customers": 370.0, "existing_customers": 929.0, "gross_profit": 6095798.0, "fees": 766722.7395, "shipping": 811766.0002, "operating_profit": 1450000 },
+            "2025-09-01": { "sales": 9223683.0, "roas": 9.124887839, "cpa": 2855.443503, "ad_cost": 1010827.0, "promo_cost": 603492.0, "customers": 1317.0, "new_customers": 354.0, "existing_customers": 963.0, "gross_profit": 7237523.0, "fees": 871186.6161, "shipping": 945222.207, "operating_profit": 2440000 },
+            "2025-10-01": { "sales": 7589591.0, "roas": 7.411434927, "cpa": 3792.733333, "ad_cost": 1024038.0, "promo_cost": 388486.0, "customers": 1097.0, "new_customers": 270.0, "existing_customers": 827.0, "gross_profit": 5999377.0, "fees": 738570.6774, "shipping": 782158.1264, "operating_profit": 1450000 }
         };
 
         // --- Helper Functions ---
@@ -343,33 +238,27 @@
 
         document.getElementById('latestSales').innerHTML = `${(july.sales / 10000).toFixed(1)}<span class="text-base">万円</span>`;
         const salesChange = formatPercent(july.sales, june.sales);
-        document.getElementById('salesMoMChange').textContent = `前月比: ${salesChange}`;
-        document.getElementById('salesMoMChange').className = `kpi-change ${getChangeClass(july.sales, june.sales)}`;
+        document.getElementById('salesMoMChange').innerHTML = `前月比: <span class="${getChangeClass(july.sales, june.sales)}">${addSign(salesChange)}</span>`;
         
         document.getElementById('latestOperatingProfit').innerHTML = `${(july.operating_profit / 10000).toFixed(1)}<span class="text-base">万円</span>`;
         const operatingProfitChange = formatPercent(july.operating_profit, june.operating_profit);
-        document.getElementById('operatingProfitMoMChange').textContent = `前月比: ${operatingProfitChange}`;
-        document.getElementById('operatingProfitMoMChange').className = `kpi-change ${getChangeClass(july.operating_profit, june.operating_profit)}`;
+        document.getElementById('operatingProfitMoMChange').innerHTML = `前月比: <span class="${getChangeClass(july.operating_profit, june.operating_profit)}">${addSign(operatingProfitChange)}</span>`;
 
         document.getElementById('latestROAS').textContent = july.roas.toFixed(2);
         const roasChange = formatAbs(july.roas, june.roas);
-        document.getElementById('roasMoMChange').textContent = `前月比: ${roasChange}`;
-        document.getElementById('roasMoMChange').className = `kpi-change ${getChangeClass(july.roas, june.roas)}`;
+        document.getElementById('roasMoMChange').innerHTML = `前月比: <span class="${getChangeClass(july.roas, june.roas)}">${addSign(roasChange)}</span>`;
         
         document.getElementById('latestCPA').innerHTML = `${Math.ceil(july.cpa).toLocaleString()}<span class="text-base">円</span>`;
         const cpaChange = formatPercent(july.cpa, june.cpa);
-        document.getElementById('cpaMoMChange').textContent = `前月比: ${addSign(cpaChange)}`;
-        document.getElementById('cpaMoMChange').className = `kpi-change ${getChangeClass(july.cpa, june.cpa, true)}`;
+        document.getElementById('cpaMoMChange').innerHTML = `前月比: <span class="${getChangeClass(july.cpa, june.cpa, true)}">${addSign(cpaChange)}</span>`;
         
         document.getElementById('latestCustomers').innerHTML = `${july.customers.toLocaleString()}<span class="text-base">人</span>`;
         const customersChange = formatPercent(july.customers, june.customers);
-        document.getElementById('customersMoMChange').textContent = `前月比: ${customersChange}`;
-        document.getElementById('customersMoMChange').className = `kpi-change ${getChangeClass(july.customers, june.customers)}`;
+        document.getElementById('customersMoMChange').innerHTML = `前月比: <span class="${getChangeClass(july.customers, june.customers)}">${addSign(customersChange)}</span>`;
 
         document.getElementById('latestNetGrossProfitMargin').innerHTML = `${julyNetProfitMargin.toFixed(1)}%`;
         const npmChange = formatPoints(julyNetProfitMargin, juneNetProfitMargin);
-        document.getElementById('netGrossProfitMarginMoMChange').textContent = `前月比: ${npmChange}`;
-        document.getElementById('netGrossProfitMarginMoMChange').className = `kpi-change ${getChangeClass(julyNetProfitMargin, juneNetProfitMargin)}`;
+        document.getElementById('netGrossProfitMarginMoMChange').innerHTML = `前月比: <span class="${getChangeClass(julyNetProfitMargin, juneNetProfitMargin)}">${addSign(npmChange)}</span>`;
 
         // Populate insight text
         document.getElementById('insight_sales_change').textContent = salesChange;
@@ -379,24 +268,28 @@
         document.getElementById('insight_net_profit_margin_change').textContent = npmChange;
         
         // --- Chart Configurations ---
-        const chartLabels = Object.keys(reportData);
-        const chartSalesData = chartLabels.map(label => reportData[label].sales / 10000); // 万円
-        const chartOperatingProfitData = chartLabels.map(label => reportData[label].operating_profit / 10000); // 万円
-        const chartCustomersData = chartLabels.map(label => reportData[label].customers);
-        const chartNewCustomersData = chartLabels.map(label => reportData[label].new_customers);
-        const chartExistingCustomersData = chartLabels.map(label => reportData[label].existing_customers);
-        const chartRoasData = chartLabels.map(label => reportData[label].roas);
-        const chartCpaData = chartLabels.map(label => reportData[label].cpa);
-        const chartAdCostRatioData = chartLabels.map(label => (reportData[label].ad_cost / reportData[label].sales) * 100);
-        const chartPromoCostRatioData = chartLabels.map(label => (reportData[label].promo_cost / reportData[label].sales) * 100);
+        // Generate formatted labels manually to avoid Date Adapter dependency
+        const sortedKeys = Object.keys(reportData).sort();
+        const chartLabels = sortedKeys.map(key => {
+            const d = new Date(key);
+            return `${d.getFullYear()}年${d.getMonth() + 1}月`;
+        });
+
+        const chartSalesData = sortedKeys.map(key => reportData[key].sales / 10000); 
+        const chartOperatingProfitData = sortedKeys.map(key => reportData[key].operating_profit / 10000); 
+        const chartCustomersData = sortedKeys.map(key => reportData[key].customers);
+        const chartNewCustomersData = sortedKeys.map(key => reportData[key].new_customers);
+        const chartExistingCustomersData = sortedKeys.map(key => reportData[key].existing_customers);
+        const chartRoasData = sortedKeys.map(key => reportData[key].roas);
+        const chartCpaData = sortedKeys.map(key => reportData[key].cpa);
+        const chartAdCostRatioData = sortedKeys.map(key => (reportData[key].ad_cost / reportData[key].sales) * 100);
+        const chartPromoCostRatioData = sortedKeys.map(key => (reportData[key].promo_cost / reportData[key].sales) * 100);
 
         const defaultChartOptions = {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
                 x: { 
-                    type: 'time',
-                    time: { unit: 'month', tooltipFormat: 'yyyy年M月', displayFormats: { month: 'M月' } },
                     ticks: { color: '#1e293b', font: { family: "'Inter', 'Noto Sans JP', sans-serif" } },
                     grid: { display: false }
                 }
