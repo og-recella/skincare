@@ -190,7 +190,7 @@
             <ul class="list-disc list-inside space-y-3 text-gray-700">
                 <li><strong style="color: #5A52F7;">繁忙期反動による売上・顧客数の減少:</strong> 10月の売上高は前月比 <span class="font-semibold" id="insight_sales_change"></span>、顧客数も <span class="font-semibold" id="insight_customers_change"></span> となり、9月の繁忙期から反動減となりました。</li>
                 <li><strong style="color: #527EF7;">CPA高騰と獲得効率の悪化:</strong> ROASは <span class="font-semibold" id="insight_roas_change"></span>、CPAは <span class="font-semibold" id="insight_cpa_change"></span> となり、新規獲得コストが急騰し効率が悪化しています。</li>
-                <li><strong style="color: #A4BAF7;">利益額の確保:</strong> 売上減の中でも利益額300万円台を確保。純粗利益率は前月比 <span class="font-semibold" id="insight_net_profit_margin_change"></span> で推移し、収益構造は維持されています。</li>
+                <li><strong style="color: #A4BAF7;">営業利益の動向:</strong> 修正後の営業利益は10月度 <span class="font-semibold">145万円</span> で着地しました。9月の244万円から減少していますが、売上規模の縮小に伴う変動の範囲内です。</li>
             </ul>
         </section>
         
@@ -204,7 +204,7 @@
 
     <script>
         // --- Data ---
-        // Fixed data keys to match YYYY-MM-DD format
+        // Updated Operating Profit based on user input (units: Yen)
         const reportData = {
             "2025-03-01": {
                 "sales": 8538667.0,
@@ -218,7 +218,7 @@
                 "gross_profit": 6407329.0,
                 "fees": 816472.7181,
                 "shipping": 877043.0734,
-                "operating_profit": 2571128.835
+                "operating_profit": 880000 // Updated
             },
             "2025-04-01": {
                 "sales": 7585340.0,
@@ -232,7 +232,7 @@
                 "gross_profit": 5745041.0,
                 "fees": 737421.7137,
                 "shipping": 781571.3234,
-                "operating_profit": 2312647.64
+                "operating_profit": 410000 // Updated
             },
             "2025-05-01": {
                 "sales": 7825620.0,
@@ -246,7 +246,7 @@
                 "gross_profit": 5964316.0,
                 "fees": 746175.6138,
                 "shipping": 803375.1876,
-                "operating_profit": 1979143.011
+                "operating_profit": 810000 // Updated
             },
             "2025-06-01": {
                 "sales": 8430130.0,
@@ -260,7 +260,7 @@
                 "gross_profit": 6456434.0,
                 "fees": 803859.1944,
                 "shipping": 865442.7208,
-                "operating_profit": 2948074.364
+                "operating_profit": 1490000 // Updated
             },
             "2025-07-01": {
                 "sales": 7945482.0,
@@ -274,7 +274,7 @@
                 "gross_profit": 6072395.0,
                 "fees": 766819.9029,
                 "shipping": 817543.965,
-                "operating_profit": 2851257.367
+                "operating_profit": 540000 // Updated
             },
             "2025-08-01": {
                 "sales": 7876417.0,
@@ -288,7 +288,7 @@
                 "gross_profit": 6095798.0,
                 "fees": 766722.7395,
                 "shipping": 811766.0002,
-                "operating_profit": 3047294.96
+                "operating_profit": 1450000 // Updated
             },
             "2025-09-01": {
                 "sales": 9223683.0,
@@ -302,7 +302,7 @@
                 "gross_profit": 7237523.0,
                 "fees": 871186.6161,
                 "shipping": 945222.207,
-                "operating_profit": 3783941.27
+                "operating_profit": 2440000 // Updated
             },
             "2025-10-01": {
                 "sales": 7589591.0,
@@ -316,7 +316,7 @@
                 "gross_profit": 5999377.0,
                 "fees": 738570.6774,
                 "shipping": 782158.1264,
-                "operating_profit": 3042925.17
+                "operating_profit": 1450000 // Updated
             }
         };
 
