@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>特定事業セグメント詳細分析 インフォグラフィック</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <!-- Chart.js v3.9.1 (安定板) を明示的に指定 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -67,6 +67,15 @@
             padding-bottom: 0.5rem; 
             border-bottom: 2px solid #527EF7;
         }
+        #error-message {
+            display: none;
+            background-color: #fee2e2;
+            color: #b91c1c;
+            padding: 1rem;
+            margin: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #f87171;
+        }
     </style>
 </head>
 <body class="text-gray-800">
@@ -77,6 +86,8 @@
             <p class="mt-4 text-lg md:text-xl text-[#A4BAF7]">Eコマース事業の2025年10月度 月次レポート</p>
         </div>
     </header>
+
+    <div id="error-message"></div>
 
     <main class="container mx-auto px-4 md:px-6 py-8">
 
@@ -93,45 +104,45 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div class="stat-card text-center">
                     <div>
-                        <p class="kpi-value" id="latestSales"></p>
+                        <p class="kpi-value" id="latestSales">-</p>
                         <p class="kpi-label">当月売上高 (税抜)</p>
                     </div>
-                    <p class="kpi-change" id="salesMoMChange"></p>
+                    <p class="kpi-change" id="salesMoMChange">-</p>
                 </div>
                 <div class="stat-card text-center">
                     <div>
-                        <p class="kpi-value" id="latestOperatingProfit"></p>
+                        <p class="kpi-value" id="latestOperatingProfit">-</p>
                         <p class="kpi-label">当月営業利益</p>
                     </div>
-                    <p class="kpi-change" id="operatingProfitMoMChange"></p>
+                    <p class="kpi-change" id="operatingProfitMoMChange">-</p>
                 </div>
                 <div class="stat-card text-center">
                     <div>
-                        <p class="kpi-value" id="latestROAS"></p>
+                        <p class="kpi-value" id="latestROAS">-</p>
                         <p class="kpi-label">当月ROAS</p>
                     </div>
-                    <p class="kpi-change" id="roasMoMChange"></p>
+                    <p class="kpi-change" id="roasMoMChange">-</p>
                 </div>
                 <div class="stat-card text-center">
                     <div>
-                        <p class="kpi-value" id="latestCPA"></p>
+                        <p class="kpi-value" id="latestCPA">-</p>
                         <p class="kpi-label">当月CPA (新規)</p>
                     </div>
-                    <p class="kpi-change" id="cpaMoMChange"></p>
+                    <p class="kpi-change" id="cpaMoMChange">-</p>
                 </div>
                  <div class="stat-card text-center">
                     <div>
-                        <p class="kpi-value" id="latestCustomers"></p>
+                        <p class="kpi-value" id="latestCustomers">-</p>
                         <p class="kpi-label">当月顧客数</p>
                     </div>
-                    <p class="kpi-change" id="customersMoMChange"></p>
+                    <p class="kpi-change" id="customersMoMChange">-</p>
                 </div>
                 <div class="stat-card text-center">
                     <div>
-                        <p class="kpi-value" id="latestNetGrossProfitMargin"></p>
+                        <p class="kpi-value" id="latestNetGrossProfitMargin">-</p>
                         <p class="kpi-label">当月純粗利益率</p>
                     </div>
-                    <p class="kpi-change" id="netGrossProfitMarginMoMChange"></p>
+                    <p class="kpi-change" id="netGrossProfitMarginMoMChange">-</p>
                 </div>
             </div>
         </section>
@@ -203,220 +214,266 @@
     </footer>
 
     <script>
-        // --- Data ---
-        const reportData = {
-            "2025-03-01": { "sales": 8538667.0, "roas": 5.947306578, "cpa": 2369.174917, "ad_cost": 1435720.0, "promo_cost": 683788.0, "customers": 1541.0, "new_customers": 606.0, "existing_customers": 935.0, "gross_profit": 6407329.0, "fees": 816472.7181, "shipping": 877043.0734, "operating_profit": 880000 },
-            "2025-04-01": { "sales": 7585340.0, "roas": 5.639335146, "cpa": 2861.865957, "ad_cost": 1345077.0, "promo_cost": 545286.0, "customers": 1333.0, "new_customers": 470.0, "existing_customers": 863.0, "gross_profit": 5745041.0, "fees": 737421.7137, "shipping": 781571.3234, "operating_profit": 410000 },
-            "2025-05-01": { "sales": 7825620.0, "roas": 4.442936773, "cpa": 3594.616327, "ad_cost": 1761362.0, "promo_cost": 653447.0, "customers": 1388.0, "new_customers": 490.0, "existing_customers": 898.0, "gross_profit": 5964316.0, "fees": 746175.6138, "shipping": 803375.1876, "operating_profit": 810000 },
-            "2025-06-01": { "sales": 8430130.0, "roas": 7.064001549, "cpa": 2420.675456, "ad_cost": 1193393.0, "promo_cost": 623235.0, "customers": 1472.0, "new_customers": 493.0, "existing_customers": 979.0, "gross_profit": 6456434.0, "fees": 803859.1944, "shipping": 865442.7208, "operating_profit": 1490000 },
-            "2025-07-01": { "sales": 7945482.0, "roas": 6.644268464, "cpa": 2594.013015, "ad_cost": 1195840.0, "promo_cost": 417938.0, "customers": 1418.0, "new_customers": 461.0, "existing_customers": 957.0, "gross_profit": 6072395.0, "fees": 766819.9029, "shipping": 817543.965, "operating_profit": 540000 },
-            "2025-08-01": { "sales": 7876417.0, "roas": 7.51141482, "cpa": 2834.035135, "ad_cost": 1048593.0, "promo_cost": 397297.0, "customers": 1299.0, "new_customers": 370.0, "existing_customers": 929.0, "gross_profit": 6095798.0, "fees": 766722.7395, "shipping": 811766.0002, "operating_profit": 1450000 },
-            "2025-09-01": { "sales": 9223683.0, "roas": 9.124887839, "cpa": 2855.443503, "ad_cost": 1010827.0, "promo_cost": 603492.0, "customers": 1317.0, "new_customers": 354.0, "existing_customers": 963.0, "gross_profit": 7237523.0, "fees": 871186.6161, "shipping": 945222.207, "operating_profit": 2440000 },
-            "2025-10-01": { "sales": 7589591.0, "roas": 7.411434927, "cpa": 3792.733333, "ad_cost": 1024038.0, "promo_cost": 388486.0, "customers": 1097.0, "new_customers": 270.0, "existing_customers": 827.0, "gross_profit": 5999377.0, "fees": 738570.6774, "shipping": 782158.1264, "operating_profit": 1450000 }
-        };
+    document.addEventListener('DOMContentLoaded', function() {
+        try {
+            // --- Data ---
+            const reportData = {
+                "2025-03-01": { "sales": 8538667.0, "roas": 5.947306578, "cpa": 2369.174917, "ad_cost": 1435720.0, "promo_cost": 683788.0, "customers": 1541.0, "new_customers": 606.0, "existing_customers": 935.0, "gross_profit": 6407329.0, "fees": 816472.7181, "shipping": 877043.0734, "operating_profit": 880000 },
+                "2025-04-01": { "sales": 7585340.0, "roas": 5.639335146, "cpa": 2861.865957, "ad_cost": 1345077.0, "promo_cost": 545286.0, "customers": 1333.0, "new_customers": 470.0, "existing_customers": 863.0, "gross_profit": 5745041.0, "fees": 737421.7137, "shipping": 781571.3234, "operating_profit": 410000 },
+                "2025-05-01": { "sales": 7825620.0, "roas": 4.442936773, "cpa": 3594.616327, "ad_cost": 1761362.0, "promo_cost": 653447.0, "customers": 1388.0, "new_customers": 490.0, "existing_customers": 898.0, "gross_profit": 5964316.0, "fees": 746175.6138, "shipping": 803375.1876, "operating_profit": 810000 },
+                "2025-06-01": { "sales": 8430130.0, "roas": 7.064001549, "cpa": 2420.675456, "ad_cost": 1193393.0, "promo_cost": 623235.0, "customers": 1472.0, "new_customers": 493.0, "existing_customers": 979.0, "gross_profit": 6456434.0, "fees": 803859.1944, "shipping": 865442.7208, "operating_profit": 1490000 },
+                "2025-07-01": { "sales": 7945482.0, "roas": 6.644268464, "cpa": 2594.013015, "ad_cost": 1195840.0, "promo_cost": 417938.0, "customers": 1418.0, "new_customers": 461.0, "existing_customers": 957.0, "gross_profit": 6072395.0, "fees": 766819.9029, "shipping": 817543.965, "operating_profit": 540000 },
+                "2025-08-01": { "sales": 7876417.0, "roas": 7.51141482, "cpa": 2834.035135, "ad_cost": 1048593.0, "promo_cost": 397297.0, "customers": 1299.0, "new_customers": 370.0, "existing_customers": 929.0, "gross_profit": 6095798.0, "fees": 766722.7395, "shipping": 811766.0002, "operating_profit": 1450000 },
+                "2025-09-01": { "sales": 9223683.0, "roas": 9.124887839, "cpa": 2855.443503, "ad_cost": 1010827.0, "promo_cost": 603492.0, "customers": 1317.0, "new_customers": 354.0, "existing_customers": 963.0, "gross_profit": 7237523.0, "fees": 871186.6161, "shipping": 945222.207, "operating_profit": 2440000 },
+                "2025-10-01": { "sales": 7589591.0, "roas": 7.411434927, "cpa": 3792.733333, "ad_cost": 1024038.0, "promo_cost": 388486.0, "customers": 1097.0, "new_customers": 270.0, "existing_customers": 827.0, "gross_profit": 5999377.0, "fees": 738570.6774, "shipping": 782158.1264, "operating_profit": 1450000 }
+            };
 
-        // --- Helper Functions ---
-        const formatPercent = (current, previous) => previous ? `${((current - previous) / previous * 100).toFixed(1)}%` : 'N/A';
-        const formatPoints = (current, previous) => previous ? `${(current - previous).toFixed(1)}pt` : 'N/A';
-        const formatAbs = (current, previous) => previous ? `${(current - previous).toFixed(2)}` : 'N/A';
-        const getChangeClass = (current, previous, lowerIsBetter = false) => {
-            if (previous == null) return 'text-gray-500';
-            const change = current - previous;
-            if (lowerIsBetter) {
-                return change < 0 ? 'positive-change' : 'negative-change';
-            }
-            return change > 0 ? 'positive-change' : 'negative-change';
-        };
-        const addSign = (val) => (val && !val.startsWith('-')) ? `+${val}` : val;
-        const calculateNetProfitMargin = (data) => ((data.gross_profit - data.fees - data.shipping) / data.sales) * 100;
-        
-        // --- Populate KPIs ---
-        const july = reportData['2025-10-01'];
-        const june = reportData['2025-09-01'];
-        const julyNetProfitMargin = calculateNetProfitMargin(july);
-        const juneNetProfitMargin = calculateNetProfitMargin(june);
-
-        document.getElementById('latestSales').innerHTML = `${(july.sales / 10000).toFixed(1)}<span class="text-base">万円</span>`;
-        const salesChange = formatPercent(july.sales, june.sales);
-        document.getElementById('salesMoMChange').innerHTML = `前月比: <span class="${getChangeClass(july.sales, june.sales)}">${addSign(salesChange)}</span>`;
-        
-        document.getElementById('latestOperatingProfit').innerHTML = `${(july.operating_profit / 10000).toFixed(1)}<span class="text-base">万円</span>`;
-        const operatingProfitChange = formatPercent(july.operating_profit, june.operating_profit);
-        document.getElementById('operatingProfitMoMChange').innerHTML = `前月比: <span class="${getChangeClass(july.operating_profit, june.operating_profit)}">${addSign(operatingProfitChange)}</span>`;
-
-        document.getElementById('latestROAS').textContent = july.roas.toFixed(2);
-        const roasChange = formatAbs(july.roas, june.roas);
-        document.getElementById('roasMoMChange').innerHTML = `前月比: <span class="${getChangeClass(july.roas, june.roas)}">${addSign(roasChange)}</span>`;
-        
-        document.getElementById('latestCPA').innerHTML = `${Math.ceil(july.cpa).toLocaleString()}<span class="text-base">円</span>`;
-        const cpaChange = formatPercent(july.cpa, june.cpa);
-        document.getElementById('cpaMoMChange').innerHTML = `前月比: <span class="${getChangeClass(july.cpa, june.cpa, true)}">${addSign(cpaChange)}</span>`;
-        
-        document.getElementById('latestCustomers').innerHTML = `${july.customers.toLocaleString()}<span class="text-base">人</span>`;
-        const customersChange = formatPercent(july.customers, june.customers);
-        document.getElementById('customersMoMChange').innerHTML = `前月比: <span class="${getChangeClass(july.customers, june.customers)}">${addSign(customersChange)}</span>`;
-
-        document.getElementById('latestNetGrossProfitMargin').innerHTML = `${julyNetProfitMargin.toFixed(1)}%`;
-        const npmChange = formatPoints(julyNetProfitMargin, juneNetProfitMargin);
-        document.getElementById('netGrossProfitMarginMoMChange').innerHTML = `前月比: <span class="${getChangeClass(julyNetProfitMargin, juneNetProfitMargin)}">${addSign(npmChange)}</span>`;
-
-        // Populate insight text
-        document.getElementById('insight_sales_change').textContent = salesChange;
-        document.getElementById('insight_customers_change').textContent = customersChange;
-        document.getElementById('insight_roas_change').textContent = roasChange;
-        document.getElementById('insight_cpa_change').textContent = addSign(cpaChange);
-        document.getElementById('insight_net_profit_margin_change').textContent = npmChange;
-        
-        // --- Chart Configurations ---
-        // Generate formatted labels manually to avoid Date Adapter dependency
-        const sortedKeys = Object.keys(reportData).sort();
-        const chartLabels = sortedKeys.map(key => {
-            const d = new Date(key);
-            return `${d.getFullYear()}年${d.getMonth() + 1}月`;
-        });
-
-        const chartSalesData = sortedKeys.map(key => reportData[key].sales / 10000); 
-        const chartOperatingProfitData = sortedKeys.map(key => reportData[key].operating_profit / 10000); 
-        const chartCustomersData = sortedKeys.map(key => reportData[key].customers);
-        const chartNewCustomersData = sortedKeys.map(key => reportData[key].new_customers);
-        const chartExistingCustomersData = sortedKeys.map(key => reportData[key].existing_customers);
-        const chartRoasData = sortedKeys.map(key => reportData[key].roas);
-        const chartCpaData = sortedKeys.map(key => reportData[key].cpa);
-        const chartAdCostRatioData = sortedKeys.map(key => (reportData[key].ad_cost / reportData[key].sales) * 100);
-        const chartPromoCostRatioData = sortedKeys.map(key => (reportData[key].promo_cost / reportData[key].sales) * 100);
-
-        const defaultChartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: { 
-                    ticks: { color: '#1e293b', font: { family: "'Inter', 'Noto Sans JP', sans-serif" } },
-                    grid: { display: false }
+            // --- Helper Functions ---
+            const formatPercent = (current, previous) => previous ? `${((current - previous) / previous * 100).toFixed(1)}%` : 'N/A';
+            const formatPoints = (current, previous) => previous ? `${(current - previous).toFixed(1)}pt` : 'N/A';
+            const formatAbs = (current, previous) => previous ? `${(current - previous).toFixed(2)}` : 'N/A';
+            const getChangeClass = (current, previous, lowerIsBetter = false) => {
+                if (previous == null) return 'text-gray-500';
+                const change = current - previous;
+                if (lowerIsBetter) {
+                    return change < 0 ? 'positive-change' : 'negative-change';
                 }
-            },
-            plugins: {
-                legend: { labels: { color: '#1e293b', font: { family: "'Inter', 'Noto Sans JP', sans-serif" } } },
-                tooltip: {
-                    backgroundColor: 'rgba(30, 41, 59, 0.9)',
-                    titleFont: { family: "'Inter', 'Noto Sans JP', sans-serif", weight: 'bold', size: 14 },
-                    bodyFont: { family: "'Inter', 'Noto Sans JP', sans-serif", size: 12 },
-                }
-            }
-        };
+                return change > 0 ? 'positive-change' : 'negative-change';
+            };
+            const addSign = (val) => (val && !val.startsWith('-')) ? `+${val}` : val;
+            const calculateNetProfitMargin = (data) => ((data.gross_profit - data.fees - data.shipping) / data.sales) * 100;
+            
+            // --- Populate KPIs ---
+            const july = reportData['2025-10-01'];
+            const june = reportData['2025-09-01'];
+            const julyNetProfitMargin = calculateNetProfitMargin(july);
+            const juneNetProfitMargin = calculateNetProfitMargin(june);
 
-        // Sales and Operating Profit Chart
-        new Chart(document.getElementById('salesChart'), {
-            type: 'bar',
-            data: {
-                labels: chartLabels,
-                datasets: [
-                    { 
-                        label: '売上高 (万円)', 
-                        data: chartSalesData, 
-                        backgroundColor: 'rgba(82, 126, 247, 0.6)',
-                        yAxisID: 'y',
-                    },
-                    {
-                        label: '営業利益 (万円)',
-                        data: chartOperatingProfitData,
-                        type: 'line',
-                        borderColor: '#5A52F7',
-                        tension: 0.3,
-                        yAxisID: 'y1',
+            document.getElementById('latestSales').innerHTML = `${(july.sales / 10000).toFixed(1)}<span class="text-base">万円</span>`;
+            const salesChange = formatPercent(july.sales, june.sales);
+            document.getElementById('salesMoMChange').innerHTML = `前月比: <span class="${getChangeClass(july.sales, june.sales)}">${addSign(salesChange)}</span>`;
+            
+            document.getElementById('latestOperatingProfit').innerHTML = `${(july.operating_profit / 10000).toFixed(1)}<span class="text-base">万円</span>`;
+            const operatingProfitChange = formatPercent(july.operating_profit, june.operating_profit);
+            document.getElementById('operatingProfitMoMChange').innerHTML = `前月比: <span class="${getChangeClass(july.operating_profit, june.operating_profit)}">${addSign(operatingProfitChange)}</span>`;
+
+            document.getElementById('latestROAS').textContent = july.roas.toFixed(2);
+            const roasChange = formatAbs(july.roas, june.roas);
+            document.getElementById('roasMoMChange').innerHTML = `前月比: <span class="${getChangeClass(july.roas, june.roas)}">${addSign(roasChange)}</span>`;
+            
+            document.getElementById('latestCPA').innerHTML = `${Math.ceil(july.cpa).toLocaleString()}<span class="text-base">円</span>`;
+            const cpaChange = formatPercent(july.cpa, june.cpa);
+            document.getElementById('cpaMoMChange').innerHTML = `前月比: <span class="${getChangeClass(july.cpa, june.cpa, true)}">${addSign(cpaChange)}</span>`;
+            
+            document.getElementById('latestCustomers').innerHTML = `${july.customers.toLocaleString()}<span class="text-base">人</span>`;
+            const customersChange = formatPercent(july.customers, june.customers);
+            document.getElementById('customersMoMChange').innerHTML = `前月比: <span class="${getChangeClass(july.customers, june.customers)}">${addSign(customersChange)}</span>`;
+
+            document.getElementById('latestNetGrossProfitMargin').innerHTML = `${julyNetProfitMargin.toFixed(1)}%`;
+            const npmChange = formatPoints(julyNetProfitMargin, juneNetProfitMargin);
+            document.getElementById('netGrossProfitMarginMoMChange').innerHTML = `前月比: <span class="${getChangeClass(julyNetProfitMargin, juneNetProfitMargin)}">${addSign(npmChange)}</span>`;
+
+            // Populate insight text
+            if(document.getElementById('insight_sales_change')) document.getElementById('insight_sales_change').textContent = salesChange;
+            if(document.getElementById('insight_customers_change')) document.getElementById('insight_customers_change').textContent = customersChange;
+            if(document.getElementById('insight_roas_change')) document.getElementById('insight_roas_change').textContent = roasChange;
+            if(document.getElementById('insight_cpa_change')) document.getElementById('insight_cpa_change').textContent = addSign(cpaChange);
+            if(document.getElementById('insight_net_profit_margin_change')) document.getElementById('insight_net_profit_margin_change').textContent = npmChange;
+            
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+            // --- Chart Configurations ---
+            const sortedKeys = Object.keys(reportData).sort();
+            const chartLabels = sortedKeys.map(key => {
+                const d = new Date(key);
+                return `${d.getFullYear()}年${d.getMonth() + 1}月`;
+            });
+
+            const chartSalesData = sortedKeys.map(key => reportData[key].sales / 10000); 
+            const chartOperatingProfitData = sortedKeys.map(key => reportData[key].operating_profit / 10000); 
+            const chartCustomersData = sortedKeys.map(key => reportData[key].customers);
+            const chartNewCustomersData = sortedKeys.map(key => reportData[key].new_customers);
+            const chartExistingCustomersData = sortedKeys.map(key => reportData[key].existing_customers);
+            const chartRoasData = sortedKeys.map(key => reportData[key].roas);
+            const chartCpaData = sortedKeys.map(key => reportData[key].cpa);
+            const chartAdCostRatioData = sortedKeys.map(key => (reportData[key].ad_cost / reportData[key].sales) * 100);
+            const chartPromoCostRatioData = sortedKeys.map(key => (reportData[key].promo_cost / reportData[key].sales) * 100);
+
+            const defaultChartOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                scales: {
+                    x: { 
+                        ticks: { color: '#1e293b', font: { family: "'Inter', 'Noto Sans JP', sans-serif" } },
+                        grid: { display: false }
                     }
-                ]
-            },
-            options: { 
-                ...defaultChartOptions, 
-                scales: { 
-                    ...defaultChartOptions.scales, 
-                    y: { 
-                        type: 'linear',
-                        display: true,
-                        position: 'left',
-                        beginAtZero: true, 
-                        ticks: { color: '#1e293b' }, 
-                        grid: { color: 'rgba(164, 186, 247, 0.2)' },
-                        title: { display: true, text: '売上高 (万円)'}
-                    },
-                    y1: {
-                        type: 'linear',
-                        display: true,
-                        position: 'right',
-                        grid: {
-                            drawOnChartArea: false, 
+                },
+                plugins: {
+                    legend: { labels: { color: '#1e293b', font: { family: "'Inter', 'Noto Sans JP', sans-serif" } } },
+                    tooltip: {
+                        backgroundColor: 'rgba(30, 41, 59, 0.9)',
+                        titleFont: { family: "'Inter', 'Noto Sans JP', sans-serif", weight: 'bold', size: 14 },
+                        bodyFont: { family: "'Inter', 'Noto Sans JP', sans-serif", size: 12 },
+                    }
+                }
+            };
+
+            // Sales Chart
+            new Chart(document.getElementById('salesChart'), {
+                type: 'bar',
+                data: {
+                    labels: chartLabels,
+                    datasets: [
+                        { 
+                            label: '売上高 (万円)', 
+                            data: chartSalesData, 
+                            backgroundColor: 'rgba(82, 126, 247, 0.6)',
+                            yAxisID: 'y',
+                            order: 2
                         },
-                         title: { display: true, text: '営業利益 (万円)'}
-                    }
-                } 
-            }
-        });
+                        {
+                            label: '営業利益 (万円)',
+                            data: chartOperatingProfitData,
+                            type: 'line',
+                            borderColor: '#5A52F7',
+                            backgroundColor: '#5A52F7',
+                            tension: 0.3,
+                            yAxisID: 'y1',
+                            order: 1
+                        }
+                    ]
+                },
+                options: { 
+                    ...defaultChartOptions, 
+                    scales: { 
+                        x: defaultChartOptions.scales.x,
+                        y: { 
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            beginAtZero: true, 
+                            ticks: { color: '#1e293b' }, 
+                            grid: { color: 'rgba(164, 186, 247, 0.2)' },
+                            title: { display: true, text: '売上高 (万円)'}
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            grid: { drawOnChartArea: false },
+                            title: { display: true, text: '営業利益 (万円)'}
+                        }
+                    } 
+                }
+            });
 
-        // Customers Chart
-        new Chart(document.getElementById('customersChart'), {
-            type: 'line',
-            data: {
-                labels: chartLabels,
-                datasets: [{ label: '総顧客数', data: chartCustomersData, borderColor: '#527EF7', backgroundColor: 'rgba(82, 126, 247, 0.2)', fill: true, tension: 0.3 }]
-            },
-            options: defaultChartOptions
-        });
+            // Customers Chart
+            new Chart(document.getElementById('customersChart'), {
+                type: 'line',
+                data: {
+                    labels: chartLabels,
+                    datasets: [{ 
+                        label: '総顧客数', 
+                        data: chartCustomersData, 
+                        borderColor: '#527EF7', 
+                        backgroundColor: 'rgba(82, 126, 247, 0.2)', 
+                        fill: true, 
+                        tension: 0.3 
+                    }]
+                },
+                options: defaultChartOptions
+            });
 
-        // Customer Composition Chart
-        new Chart(document.getElementById('customerCompositionChart'), {
-            type: 'line',
-            data: {
-                labels: chartLabels,
-                datasets: [
-                    { 
-                        label: '既存顧客数', 
-                        data: chartExistingCustomersData, 
-                        borderColor: '#527EF7',
-                        backgroundColor: 'rgba(82, 126, 247, 0.1)',
-                        fill: true,
-                        tension: 0.3
-                    },
-                    { 
-                        label: '新規顧客数', 
-                        data: chartNewCustomersData, 
-                        borderColor: '#A4BAF7',
-                        backgroundColor: 'rgba(164, 186, 247, 0.1)',
-                        fill: true,
-                        tension: 0.3
-                    }
-                ]
-            },
-            options: defaultChartOptions
-        });
-        
-        // ROAS Chart
-        new Chart(document.getElementById('roasChart'), {
-            type: 'line',
-            data: { labels: chartLabels, datasets: [{ label: 'ROAS', data: chartRoasData, borderColor: '#5A52F7', tension: 0.3 }] },
-            options: defaultChartOptions
-        });
+            // Customer Composition Chart
+            new Chart(document.getElementById('customerCompositionChart'), {
+                type: 'line',
+                data: {
+                    labels: chartLabels,
+                    datasets: [
+                        { 
+                            label: '既存顧客数', 
+                            data: chartExistingCustomersData, 
+                            borderColor: '#527EF7',
+                            backgroundColor: 'rgba(82, 126, 247, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        },
+                        { 
+                            label: '新規顧客数', 
+                            data: chartNewCustomersData, 
+                            borderColor: '#A4BAF7',
+                            backgroundColor: 'rgba(164, 186, 247, 0.1)',
+                            fill: true,
+                            tension: 0.3
+                        }
+                    ]
+                },
+                options: defaultChartOptions
+            });
+            
+            // ROAS Chart
+            new Chart(document.getElementById('roasChart'), {
+                type: 'line',
+                data: { 
+                    labels: chartLabels, 
+                    datasets: [{ 
+                        label: 'ROAS', 
+                        data: chartRoasData, 
+                        borderColor: '#5A52F7', 
+                        tension: 0.3 
+                    }] 
+                },
+                options: defaultChartOptions
+            });
 
-        // CPA Chart
-        new Chart(document.getElementById('cpaChart'), {
-            type: 'line',
-            data: { labels: chartLabels, datasets: [{ label: 'CPA (円)', data: chartCpaData, borderColor: '#527EF7', tension: 0.3 }] },
-            options: defaultChartOptions
-        });
-        
-        // Cost Ratio Chart
-        new Chart(document.getElementById('costRatioChart'), {
-            type: 'line',
-            data: {
-                labels: chartLabels,
-                datasets: [
-                    { label: '広告費率', data: chartAdCostRatioData, borderColor: '#5A52F7', tension: 0.3 },
-                    { label: '販促費率', data: chartPromoCostRatioData, borderColor: '#A4BAF7', tension: 0.3 }
-                ]
-            },
-            options: { ...defaultChartOptions, scales: { ...defaultChartOptions.scales, y: { title: { display: true, text: '売上対比 (%)' }, ticks: { callback: (value) => value.toFixed(1) + '%' } } } }
-        });
+            // CPA Chart
+            new Chart(document.getElementById('cpaChart'), {
+                type: 'line',
+                data: { 
+                    labels: chartLabels, 
+                    datasets: [{ 
+                        label: 'CPA (円)', 
+                        data: chartCpaData, 
+                        borderColor: '#ef4444', 
+                        tension: 0.3 
+                    }] 
+                },
+                options: defaultChartOptions
+            });
+            
+            // Cost Ratio Chart
+            new Chart(document.getElementById('costRatioChart'), {
+                type: 'line',
+                data: {
+                    labels: chartLabels,
+                    datasets: [
+                        { label: '広告費率', data: chartAdCostRatioData, borderColor: '#5A52F7', tension: 0.3 },
+                        { label: '販促費率', data: chartPromoCostRatioData, borderColor: '#A4BAF7', tension: 0.3 }
+                    ]
+                },
+                options: { 
+                    ...defaultChartOptions, 
+                    scales: { 
+                        x: defaultChartOptions.scales.x,
+                        y: { 
+                            title: { display: true, text: '売上対比 (%)' }, 
+                            ticks: { callback: (value) => value.toFixed(1) + '%' } 
+                        } 
+                    } 
+                }
+            });
 
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        } catch (e) {
+            console.error("Graph rendering error:", e);
+            const errDiv = document.getElementById('error-message');
+            errDiv.style.display = 'block';
+            errDiv.textContent = 'グラフの描画中にエラーが発生しました: ' + e.message;
+        }
+    });
     </script>
 </body>
 </html>
