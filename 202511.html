@@ -358,7 +358,13 @@
                 }
                 return change > 0 ? 'positive-change' : 'negative-change';
             };
-            const addSign = (val) => (val && !val.startsWith('-')) ? `+${val}` : val;
+            // --- FIX: Ensure val is treated as string for startsWith check ---
+            const addSign = (val) => {
+                if (val === null || val === undefined) return val;
+                const str = String(val);
+                return (!str.startsWith('-')) ? `+${str}` : str;
+            };
+            
             const calculateNetProfitMargin = (data) => ((data.gross_profit - data.fees - data.shipping) / data.sales) * 100;
             
             // --- Populate KPIs (Focus: Nov 2025) ---
