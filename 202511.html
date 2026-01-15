@@ -199,7 +199,7 @@
         <section id="insights" class="stat-card">
             <h3 class="section-title">主要インサイトと考察</h3>
             <ul class="list-disc list-inside space-y-3 text-gray-700">
-                <li><strong style="color: #5A52F7;">売上・顧客数の動向:</strong> 11月の売上高は前月比 <span class="font-semibold" id="insight_sales_change"></span>、顧客数は <span class="font-semibold" id="insight_customers_change"></span> となり、売上はわずかに減少しましたが顧客数は増加に転じました。</li>
+                <li><strong style="color: #5A52F7;">売上・顧客数の動向:</strong> 11月の売上高は前月比 <span class="font-semibold" id="insight_sales_change"></span>、顧客数も <span class="font-semibold" id="insight_customers_change"></span> となり、売上・顧客数ともに減少傾向にあります。</li>
                 <li><strong style="color: #527EF7;">獲得効率の推移:</strong> ROASは <span class="font-semibold" id="insight_roas_change"></span>、CPAは <span class="font-semibold" id="insight_cpa_change"></span> となり、前月と比較して獲得コストが増加し効率が悪化しています。</li>
                 <li><strong style="color: #A4BAF7;">営業利益:</strong> 11月度の営業利益は <span class="font-semibold">115.0万円</span>（前月比 -14.0万円）で着地しました。</li>
             </ul>
@@ -217,7 +217,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         try {
             // --- Data from CSV ---
-            // Updated with raw Sales values (no division) and correct Operating Profit (Col S for Nov/Oct)
+            // Updated Customers (Col L, M, N) and Sept OP (Col S)
             const reportData = {
                 "2025-03-01": {
                     "sales": 8538667,
@@ -309,13 +309,13 @@
                     "cpa": 2855.0,
                     "ad_cost": 1010827.0,
                     "promo_cost": 603492.0,
-                    "customers": 1317.0,
-                    "new_customers": 354.0,
-                    "existing_customers": 963.0,
+                    "customers": 1263.0,
+                    "new_customers": 357.0,
+                    "existing_customers": 906.0,
                     "gross_profit": 7237523.0,
                     "fees": 827212.0,
                     "shipping": 915222.0,
-                    "operating_profit": 2440000.0
+                    "operating_profit": 2130000.0
                 },
                 "2025-10-01": {
                     "sales": 7386961,
@@ -323,9 +323,9 @@
                     "cpa": 3724.0,
                     "ad_cost": 1024038.0,
                     "promo_cost": 388486.0,
-                    "customers": 1227.0,
-                    "new_customers": 275.0,
-                    "existing_customers": 952.0,
+                    "customers": 1206.0,
+                    "new_customers": 279.0,
+                    "existing_customers": 927.0,
                     "gross_profit": 5796747.0,
                     "fees": 713113.0,
                     "shipping": 760115.0,
@@ -337,9 +337,9 @@
                     "cpa": 4469.0,
                     "ad_cost": 1170839.0,
                     "promo_cost": 327498.0,
-                    "customers": 1263.0,
-                    "new_customers": 262.0,
-                    "existing_customers": 1001.0,
+                    "customers": 1188.0,
+                    "new_customers": 252.0,
+                    "existing_customers": 936.0,
                     "gross_profit": 5643923.0,
                     "fees": 688608.0,
                     "shipping": 735424.0,
